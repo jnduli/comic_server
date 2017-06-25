@@ -1,2 +1,3 @@
 comicsite/__pycache__/
 *.swp
+db.sqlite3

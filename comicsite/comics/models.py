@@ -11,26 +11,26 @@ class Concept ( models.Model ):
     environment = models.TextField()
     conversation = models.TextField()
     deleted = models.BooleanField(default=False)
-    date_created = models.DateTimeField(default=timezone.now())
+    date_created = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User)
 
 class Sketch ( models.Model ):
     concept = models.ForeignKey(Concept)
     image = models.ImageField(upload_to='sketches')
-    user = models.ForeighKey(User)
-    date_created = models.DateTimeField(default=timezone.now())
+    user = models.ForeignKey(User)
+    date_created = models.DateTimeField(default=timezone.now)
     deleted = models.BooleanField(default=False)
 
 class Comic ( models.Model ):
     user = models.ForeignKey(User)
-    sketch = models.ForeighKey(Sketch)
+    sketch = models.ForeignKey(Sketch)
     description = models.TextField()
     title = models.CharField(max_length = 30)
     slug = models.SlugField(unique=True)
     published = models.BooleanField(default=True)
     deleted = models.BooleanField(default=True)
-    date_created = models.DateTimeField(default=timezone.now())
-    date_published = models.DateTimeField(default=timezone.now())
+    date_created = models.DateTimeField(default=timezone.now)
+    date_published = models.DateTimeField(default=timezone.now)
     work_files = models.FileField(upload_to='work_files')
 
     def save(self, *args, **kwargs):
@@ -38,9 +38,9 @@ class Comic ( models.Model ):
             self.slug = "%i-%s" %(
                     self.id, slugify(self.title)
                     )
-        super(Comic, self).save(*args, **kwargs)
+            super(Comic, self).save(*args, **kwargs)
 
 class Strip ( models.Model ):
-    comic - models.ForeignKey(Comic)
+    comic = models.ForeignKey(Comic)
     image = models.ImageField(upload_to='strips')
     position = models.IntegerField();

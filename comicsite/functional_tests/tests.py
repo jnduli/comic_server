@@ -5,7 +5,7 @@ import unittest
 class WriterAddComicTest ( unittest.TestCase):
 
     def setUp(self):
-        self.url = 'http://localhost:8000/comic/'
+        self.url = 'http://localhost:8000/comics/'
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
 
@@ -23,7 +23,7 @@ class WriterAddComicTest ( unittest.TestCase):
 
         pass_box = self.browser.find_element_by_id('password')
         self.assertEquals(pass_box.get_attribute('placeholder'), 'Password')
-        pass_box.send_keys('password')
+        pass_box.send_keys('password101')
         pass_box.send_keys(Keys.ENTER)
         #John then sees a page with an add comic button
         add_comic = self.browser.find_element_by_id('add_comic_button')

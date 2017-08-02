@@ -1,6 +1,52 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
+class WriterAddComicTest ( unittest.TestCase):
+
+    def setUp(self):
+        self.url = 'http://localhost:8000/comic/'
+        self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(3)
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_can_add_comic(self):
+        #John accesses the login portal
+        self.browser.get(self.url+'system')
+        self.assertIn('Comics', self.browser.title)
+        #John inputs his email john@email.com and password password
+        email_box = self.browser.find_element_by_id("email")
+        self.assertEquals(email_box.get_attribute('placeholder'), 'Email')
+        email_box.send_keys('john@email.com')
+
+        pass_box = self.browser.find_element_by_id('password')
+        self.assertEquals(pass_box.get_attribute('placeholder'), 'Password')
+        pass_box.send_keys('password')
+        pass_box.send_keys(Keys.ENTER)
+        #John then sees a page with an add comic button
+        add_comic = self.browser.find_element_by_id('add_comic_button')
+        self.assertIn('Add Comic', add_comic.text)
+        #He clicks the add comic button
+        #John is directed to a page that has the workflow of the comic
+        #John inputs the concept for the comic
+        #He inputs the description and sample conversations
+        #He inputs "today i dont know what to say"
+        #He inputs the same in detailed description
+        #He then saves the concept
+        #He goes back to home
+        #He sees a concepts link and clicks on it
+        #He then looks for the concept he recently added
+        #He finds "today i dont know what to say"
+        #He clicks on it
+        #He is directed to a page where he can either edit the concept or add a sketch
+        #He adds a sketch
+        #TODO: add adding a comic too
+        self.fail('Finish the test')
+        return
+
+""" 
 class WriterRegistrationTest (unittest.TestCase):
 
     def setUp(self):
@@ -37,6 +83,7 @@ class WriterRegistrationTest (unittest.TestCase):
         #She then clicks the log out button.
         #THe loign page is then showm
         self.fail("Finish the test")
+"""
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')

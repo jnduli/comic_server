@@ -1,11 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from django.test import LiveServerTestCase
 import unittest
 
-class WriterAddComicTest ( unittest.TestCase):
+class WriterAddComicTest ( LiveServerTestCase ):
+    fixtures = ['functional_tests/users.json']
 
     def setUp(self):
-        self.url = 'http://localhost:8000/comics/'
+        self.url = self.live_server_url
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
 
@@ -14,7 +16,7 @@ class WriterAddComicTest ( unittest.TestCase):
 
     def test_can_add_comic(self):
         #John accesses the login portal
-        self.browser.get(self.url+'system')
+        self.browser.get(self.url+'/comics/system')
         self.assertIn('Comics', self.browser.title)
         #John inputs his email john@email.com and password password
         email_box = self.browser.find_element_by_id("email")
@@ -27,7 +29,7 @@ class WriterAddComicTest ( unittest.TestCase):
         pass_box.send_keys(Keys.ENTER)
         #John then sees a page with an add comic button
         add_comic = self.browser.find_element_by_id('add_comic_button')
-        self.assertIn('Add Comic', add_comic.text)
+        self.assertIn('ADD COMIC', add_comic.text)
         #He clicks the add comic button
         #John is directed to a page that has the workflow of the comic
         #John inputs the concept for the comic
@@ -84,7 +86,3 @@ class WriterRegistrationTest (unittest.TestCase):
         #THe loign page is then showm
         self.fail("Finish the test")
 """
-
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
-

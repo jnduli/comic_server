@@ -7,8 +7,7 @@ from django.urls import reverse
 # Create your views here.
 def system_page(request):
     if request.user.is_authenticated:
-        print("Some werhe here")
-        return render(request, 'comics/main.html')
+        return render(request, 'comics/homepage.html')
     else:
         return render(request, 'comics/login.html')
 
@@ -19,11 +18,9 @@ def login(request):
         user = User.objects.get(email=email)
         user_logged = authenticate(request, username=user.username, password=password)
         if user_logged is not None:
-            print("Some random debug info")
             login_user(request, user_logged)
             return redirect(reverse('comics:index'))
         else:
-            print("Here cold")
             error_message = "Could not log in"
             return render(request, 'comics/login.html', {'error_message':"Could not log in"})
     except User.DoesNotExist:

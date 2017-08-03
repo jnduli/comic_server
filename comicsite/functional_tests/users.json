@@ -1,0 +1,36 @@
+[
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$3ROFvR9MK9VX$TsW7Ju64qFw8FybU+eKkeiPeL2C+bUIpE8H2CWM2CZQ=",
+        "last_login": "2017-08-02T13:25:50.348Z",
+        "is_superuser": true,
+        "username": "rookie",
+        "first_name": "",
+        "last_name": "",
+        "email": "yohanaizraeli@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-08-02T13:13:02.239Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$92asnCmzSnB7$pD5FQwhYD9a/wBU7H+2rSJultddCntbLbJgGLkjbaKg=",
+        "last_login": "2017-08-02T19:51:01.773Z",
+        "is_superuser": false,
+        "username": "john@email.com",
+        "first_name": "",
+        "last_name": "",
+        "email": "john@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-08-02T13:14:33Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

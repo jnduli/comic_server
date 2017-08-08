@@ -31,13 +31,25 @@ class WriterAddComicTest ( LiveServerTestCase ):
         add_comic = self.browser.find_element_by_id('add_comic_button')
         self.assertIn('ADD COMIC', add_comic.text)
         #He clicks the add comic button
+        add_comic.click()
         #John is directed to a page that has the workflow of the comic
         #John inputs the concept for the comic
+        header = self.browser.find_element_by_xpath("//h3[1]")
+        self.assertIn('Concept', header.text)
         #He inputs the description and sample conversations
         #He inputs "today i dont know what to say"
+        concept_title = self.browser.find_element_by_id('concept_title')
+        concept_title.send_keys("today i dont know what to say")
         #He inputs the same in detailed description
+        concept_desc = self.browser.find_element_by_id('concept_description')
+        concept_desc.send_keys("today i dont know what to say")
         #He then saves the concept
-        #He goes back to home
+        concept_submit = self.browser.find_element_by_id("concept_submit")
+        concept_submit.click()
+        #He is directed back to home
+        #A message showing concept added is shown
+        success_message = self.browser.find_element_by_xpath("//h6[1]")
+        self.assertEquals("Concept Added", success_message.text)
         #He sees a concepts link and clicks on it
         #He then looks for the concept he recently added
         #He finds "today i dont know what to say"

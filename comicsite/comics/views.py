@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def system_page(request):
@@ -25,3 +26,10 @@ def login(request):
             return render(request, 'comics/login.html', {'error_message':"Could not log in"})
     except User.DoesNotExist:
         return render(request, 'comics/login.html', {'error_message':"Email does not exist"})
+
+@login_required(login_url="/comics/login")
+def add_concept(request):
+    if request.method == 'POST':
+        return
+    else:
+        return render(request, 'comics/add_concept.html')

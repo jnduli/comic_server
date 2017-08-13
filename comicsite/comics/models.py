@@ -6,6 +6,8 @@ from django.utils.text import slugify
 # Create your models here.
 
 class Concept ( models.Model ):
+    title = models.CharField(max_length = 200)
+    description = models.TextField()
     characters_no = models.IntegerField()
     comicstrips_no = models.IntegerField()
     environment = models.TextField()

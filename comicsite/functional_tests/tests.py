@@ -48,8 +48,9 @@ class WriterAddComicTest ( LiveServerTestCase ):
         concept_submit.click()
         #He is directed back to home
         #A message showing concept added is shown
-        success_message = self.browser.find_element_by_xpath("//h6[1]")
-        self.assertEquals("Concept Added", success_message.text)
+        #TODO: this fails
+        success_message = self.browser.find_element_by_id("success")
+        self.assertEquals("Concept successfully created", success_message.text)
         #He sees a concepts link and clicks on it
         #He then looks for the concept he recently added
         #He finds "today i dont know what to say"

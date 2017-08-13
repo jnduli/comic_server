@@ -1,0 +1,17 @@
+{% if messages %}
+<div class="messages left-align">
+  {% for message in messages %}
+    {% if "info" in message.tags %}
+    <div class="card-panel blue lighten-2" id="info">{{ message }}</div>
+    {% elif "success" in message.tags %}
+    <div class="card-panel teal lighten-2" id="success">{{ message }}</div>
+    {% elif "error" in message.tags %}
+    <div class="card-panel red lighten-2" id="error">{{ message }}</div>
+    {% elif "warning" in message.tags %}
+    <div class="card-panel orange lighten-2" id="warning">{{ message }}</div>
+    {% else %}
+    <div class="card-panel" id="message">{{ message }}</div>
+    {% endif%}
+  {% endfor %}
+</div>
+{% endif %}

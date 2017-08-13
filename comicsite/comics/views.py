@@ -12,11 +12,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Create your views here.
+@login_required(login_url="/comics/login")
 def system_page(request):
-    if request.user.is_authenticated:
-        return render(request, 'comics/homepage.html')
-    else:
-        return render(request, 'comics/login.html')
+    return render(request, 'comics/homepage.html')
 
 def login(request):
     email = request.POST.get('email')
@@ -33,22 +31,15 @@ def login(request):
     except User.DoesNotExist:
         return render(request, 'comics/login.html', {'error_message':"Email does not exist"})
 
-@login_required(login_url="/comics/login")
-def add_concept(request):
-    if request.method == 'POST':
-        return
-    else:
-        return render(request, 'comics/add_concept.html')
-
 @method_decorator(login_required(login_url="/comics/login"),name='dispatch')
 class ConceptCreate(SuccessMessageMixin, CreateView):
     model = Concept
-    fields = ['characters_no','comicstrips_no','environment','conversation']
-    success_url = '/comics/system/' 
+    fields = ['title','description','characters_no','conversation']
+    # success_url = '/comics/system/' 
     success_message = "Concept successfully created"
 
-    # def get_success_url(self):
-        # return reverse('comics:index')
+    def get_success_url(self):
+        return reverse('comics:index')
 
     def form_valid(self, form):
         form.instance.user = self.request.user

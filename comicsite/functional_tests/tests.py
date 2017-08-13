@@ -38,11 +38,13 @@ class WriterAddComicTest ( LiveServerTestCase ):
         self.assertIn('Concept', header.text)
         #He inputs the description and sample conversations
         #He inputs "today i dont know what to say"
-        concept_title = self.browser.find_element_by_id('concept_title')
+        concept_title = self.browser.find_element_by_id('id_title')
         concept_title.send_keys("today i dont know what to say")
         #He inputs the same in detailed description
-        concept_desc = self.browser.find_element_by_id('concept_description')
+        concept_desc = self.browser.find_element_by_id('id_description')
         concept_desc.send_keys("today i dont know what to say")
+        concept_chars_no = self.browser.find_element_by_id('id_characters_no')
+        concept_chars_no.send_keys("2")
         #He then saves the concept
         concept_submit = self.browser.find_element_by_id("concept_submit")
         concept_submit.click()

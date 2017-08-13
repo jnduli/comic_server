@@ -7,11 +7,9 @@ from django.utils.text import slugify
 
 class Concept ( models.Model ):
     title = models.CharField(max_length = 200)
-    description = models.TextField()
-    characters_no = models.IntegerField()
-    comicstrips_no = models.IntegerField()
-    environment = models.TextField()
-    conversation = models.TextField()
+    description = models.TextField(unique=True)
+    characters_no = models.IntegerField(blank=True,null = True)
+    conversation = models.TextField(blank=True,null = True)
     deleted = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User)
@@ -26,8 +24,6 @@ class Sketch ( models.Model ):
 class Comic ( models.Model ):
     user = models.ForeignKey(User)
     sketch = models.ForeignKey(Sketch)
-    description = models.TextField()
-    title = models.CharField(max_length = 30)
     slug = models.SlugField(unique=True)
     published = models.BooleanField(default=True)
     deleted = models.BooleanField(default=True)

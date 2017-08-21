@@ -1,0 +1,40 @@
+{% extends "comics/main.html" %}
+
+{% block content %}
+
+<div class="row">
+    <h3>Concepts</h3>
+</div>
+
+<div class="row s8">
+
+    <table class="responsive-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Has Sketch</th>
+                <th>comic published</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for concept in object_list %}
+            <tr>
+                <td>{{ concept.title }}</td>
+                {% if concept.sketch_set.count > 0 %}
+                <td>Yes</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
+                <td>{{ concept.id }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>No concept yet</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

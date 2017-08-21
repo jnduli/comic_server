@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
 from .models import Concept
 from django.contrib import messages
@@ -44,3 +45,7 @@ class ConceptCreate(SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(ConceptCreate, self).form_valid(form)
+
+@method_decorator(login_required(login_url="/comics/login"), name="dispatch")
+class ConceptList(ListView):
+    model = Concept

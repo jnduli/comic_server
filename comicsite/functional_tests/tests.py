@@ -27,11 +27,11 @@ class WriterAddComicTest ( LiveServerTestCase ):
         self.assertEquals(pass_box.get_attribute('placeholder'), 'Password')
         pass_box.send_keys('password101')
         pass_box.send_keys(Keys.ENTER)
-        #John then sees a page with an add comic button
-        add_comic = self.browser.find_element_by_id('add_comic_button')
-        self.assertIn('ADD COMIC', add_comic.text)
+        #John then sees a page with an add concept button
+        add_concept = self.browser.find_element_by_id('add_concept_button')
+        self.assertIn('ADD CONCEPT', add_concept.text.upper())
         #He clicks the add comic button
-        add_comic.click()
+        add_concept.click()
         #John is directed to a page that has the workflow of the comic
         #John inputs the concept for the comic
         header = self.browser.find_element_by_xpath("//h3[1]")
@@ -50,12 +50,19 @@ class WriterAddComicTest ( LiveServerTestCase ):
         concept_submit.click()
         #He is directed back to home
         #A message showing concept added is shown
-        #TODO: this fails
         success_message = self.browser.find_element_by_id("success")
         self.assertEquals("Concept successfully created", success_message.text)
+
         #He sees a concepts link and clicks on it
+        list_concept = self.browser.find_element_by_id('list_concept_button')
+        list_concept.click()
         #He then looks for the concept he recently added
+        concept = self.browser.find_element_by_css_selector('td:first-of-type')
         #He finds "today i dont know what to say"
+        self.assertEquals("today i dont know what to say", concept.text)
+        # The concept should show whether it has a sketch or not
+        # The concept should show whether it has a comic or not
+        # The concept should show whether the comic is published or not
         #He clicks on it
         #He is directed to a page where he can either edit the concept or add a sketch
         #He adds a sketch

@@ -15,7 +15,7 @@ class Concept ( models.Model ):
     user = models.ForeignKey(User)
 
 class Sketch ( models.Model ):
-    concept = models.ForeignKey(Concept)
+    concept = models.OneToOneField(Concept)
     image = models.ImageField(upload_to='sketches')
     user = models.ForeignKey(User)
     date_created = models.DateTimeField(default=timezone.now)
@@ -23,7 +23,7 @@ class Sketch ( models.Model ):
 
 class Comic ( models.Model ):
     user = models.ForeignKey(User)
-    sketch = models.ForeignKey(Sketch)
+    sketch = models.OneToOneField(Sketch)
     slug = models.SlugField(unique=True)
     published = models.BooleanField(default=True)
     deleted = models.BooleanField(default=True)

@@ -17,16 +17,32 @@
                 <th>Details</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody> 
             {% for concept in object_list %}
             <tr>
                 <td>{{ concept.title }}</td>
-                {% if concept.sketch_set.count > 0 %}
+
+                {% if concept.sketch %}
                 <td>Yes</td>
+
+                {% if concept.sketch.comic %}
+                <td>Yes</td>
+                {% if concept.sketch.comic.published %}
+                <td>published</td>
                 {% else %}
-                <td>No</td>
+                <td>unpublished</td>
                 {% endif %}
-                <td>{{ concept.id }}</td>
+                {% else %}
+                <td>None</td>
+                <td>unpublished</td>
+                {% endif %}
+
+                {% else %}
+                <td>None</td>
+                <td>None</td>
+                <td>unpublished</td>
+                {% endif %}
+                <td>details</td>
             </tr>
             {% empty %}
             <tr>

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from .models import Concept
 from django.contrib import messages
@@ -48,4 +49,8 @@ class ConceptCreate(SuccessMessageMixin, CreateView):
 
 @method_decorator(login_required(login_url="/comics/login"), name="dispatch")
 class ConceptList(ListView):
+    model = Concept
+
+@method_decorator(login_required(login_url="/comics/login"), name="dispatch")
+class ConceptDetail(DetailView):
     model = Concept

@@ -70,10 +70,13 @@ class WriterAddComicTest ( LiveServerTestCase ):
         concept_comic_pub = self.browser.find_element_by_css_selector("td:nth-of-type(4)")
         self.assertEquals("unpublished",concept_comic_pub.text)
         #He clicks on it
-        concept_details = self.browser.find_element_by_css_selector('td:nth-of-type(5)')
+        concept_details = self.browser.find_element_by_css_selector('td:nth-of-type(5) a')
         self.assertEquals('details', concept_details.text)
         concept_details.click()
         #He is directed to a page where he can either edit the concept or add a sketch
+        print(self.browser.current_url)
+        concept_header = self.browser.find_element_by_css_selector('header')
+        self.assertEquals('today i dont know what to say', concept_header.text)
         #He adds a sketch
         #TODO: add adding a comic too
         self.fail('Finish the test')

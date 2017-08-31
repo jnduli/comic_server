@@ -1,0 +1,23 @@
+{% extends "comics/main.html" %}
+
+{% block content %}
+
+<div class="row">
+    <h3>Add Sketch</h3>
+</div>
+
+<div class="row s8">
+    <form class="col s12" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="input-field col s12">
+            {{ field.errors }}
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button class="btn waves-effect waves-light" type="submit" id="sketch_submit" value="submit">Submit
+    </form>
+</div>
+
+{% endblock %}

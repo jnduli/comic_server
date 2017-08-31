@@ -77,7 +77,15 @@ class WriterAddComicTest ( LiveServerTestCase ):
         print(self.browser.current_url)
         concept_header = self.browser.find_element_by_css_selector('header')
         self.assertEquals('today i dont know what to say', concept_header.text)
+        # He sees a button written 'Add sketch'
+        sketch_add_button = self.browser.find_element_by_id('sketch_add')
+        self.assertEquals('Add Sketch'.upper(), sketch_add_button.text.upper())
+        sketch_add_button.click()
+        # He clicks on it and is directed to a form where he can add sketched
+        page_header = self.browser.find_element_by_css_selector('header')
+        self.assertEquals('Add Sketch', page_header.text)
         #He adds a sketch
+        
         #TODO: add adding a comic too
         self.fail('Finish the test')
         return

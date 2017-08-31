@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
-from .models import Concept
+from .models import Concept, Sketch
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -54,3 +54,17 @@ class ConceptList(ListView):
 @method_decorator(login_required(login_url="/comics/login"), name="dispatch")
 class ConceptDetail(DetailView):
     model = Concept
+
+@method_decorator(login_required(login_url="/comics/login"),name='dispatch')
+class SketchCreate(CreateView, SuccessMessageMixin):
+    model = Sketch
+    fields = ['image']
+    success_message = "Sketch successfully created"
+
+    def get_success_url(self):
+        return reverse('comics:detail_concept', args=[self.kwargs['pk']])
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.concept = Concept.objects.get(pk=self.kwargs['pk'])
+        return super(SketchCreate, self).form_valid(form)

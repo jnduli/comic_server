@@ -1,0 +1,13 @@
+== Comic Server ==
+- [ ] Home page: Show list of comics
+- [ ] Login page: improve UI
+- [ ] Navigation page: after login
+- [ ] List concepts page: improve UI
+- [ ] Sort out sketches folder
+- [ ] Image uploaded in sketches to be smaller
+- [ ] Rename image uploaded in sketches
+- [ ] Edit sketch button to work
+- [ ] Add comics-working-file
+- [ ] Add final images to show in homepage
+- [ ] Write unit tests for system
+- [ ] Complete functional tests for system

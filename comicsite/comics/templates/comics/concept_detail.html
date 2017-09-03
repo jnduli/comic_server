@@ -1,11 +1,11 @@
-{% extends "comics/main.html" %}
+{% extends "comics/auth.html" %}
 
-{% block content %}
+{% block page %}
 
-<header>{{ object.title }}</header>
+<header><h4>{{ object.title }}</h4></header>
 
 {% if object.sketch %}
-<img src="{{ object.sketch.image.url }}"></img>
+<img id='sketch_image' class="responsive-img" src="{{ object.sketch.image.url }}"></img>
 <a class="btn waves-effect waves-light">Edit Sketch</a>
 {% else %}
 <a class="btn waves-effect waves-light" id="sketch_add" href="{% url 'comics:sketch_create' object.id %}">Add Sketch</a>

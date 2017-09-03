@@ -1,14 +1,25 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from django.test import LiveServerTestCase
 import unittest
+import os
 
 class WriterAddComicTest ( LiveServerTestCase ):
     fixtures = ['functional_tests/users.json']
 
     def setUp(self):
         self.url = self.live_server_url
+        # fp = webdriver.FirefoxProfile()
+        # fp.set_preference('dom.file.createInChild', True)
+        # firefox_capabilities = DesiredCapabilities.FIREFOX
+        # firefox_capabilities['marionette'] = True
+        # opts = webdriver.firefox.options.Options()
+        # opts.profile = fp
+        # firefox_capabilities['firefox_profile'] = fp.encode()
+        #self.browser = webdriver.Firefox(firefox_options=opts)
         self.browser = webdriver.Firefox()
+        # self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -82,10 +93,26 @@ class WriterAddComicTest ( LiveServerTestCase ):
         self.assertEquals('Add Sketch'.upper(), sketch_add_button.text.upper())
         sketch_add_button.click()
         # He clicks on it and is directed to a form where he can add sketched
-        page_header = self.browser.find_element_by_css_selector('header')
+        page_header = self.browser.find_element_by_id('title')
         self.assertEquals('Add Sketch', page_header.text)
         #He adds a sketch
-        
+        # image_path = os.path.abspath('./test.png')
+        sketch_image = self.browser.find_element_by_id('id_image')
+        # sketch_image = self.browser.find_element_by_xpath("//input[@type='file']")
+        sketch_image.clear()
+        sketch_image.send_keys(os.getcwd(),'/test.png')
+        # self.browser.find_element_by_id('id_image').send_keys(os.path.dirname(os.path.realpath(__file__)),'/test.png')
+        self.browser.find_element_by_id('sketch_submit').click()
+        # The sketch is uploaded and he can view it in the page that is shown
+        sketch = self.browser.find_element_by_id('sketch_image')
+        sketch_image_link = sketch.get_attribute('src')
+        self.assertTrue('today' in sketch_image_link)
+        # He sees a button written 'Add comics work'
+        # He clicks on it and is directed to a form where he can upload a gimp/photoshop file
+        # He adds this file and is directed to another page that contains this information
+        # He sees a button written 'Add actual comics'. This takes him to a page requesting he adds
+        # mutliple images of the comics named according to their order ie. 1,2,3,4
+        # He does this and is redirected to a page containing all the information about this particular comic
         #TODO: add adding a comic too
         self.fail('Finish the test')
         return

@@ -1,26 +1,30 @@
 {% extends "comics/main.html" %}
 
 {% block content %}
-<div class="row">
-    <h3>Login</h3>
-</div>
-
-{% if error_message %} <h6>{{ error_message }}</h6> {% endif %}
-
-<div class="row">
-    <form class="col s12" action="{% url 'comics:login' %}" method="post">
-        {% csrf_token %}
-        <div class="input-field col s12">
-            <input placeholder="Email" id="email" type="email" class="validate" name="email">
-            <label for="email">Email</label>
+<div class="card">
+    <div class="card-title">Login</div>
+    <div class="card-content">
+        {% if error_message %} 
+        <div class="col s12 red lighten-3">
+            {{ error_message }} 
         </div>
-        <div class="input-field col s12">
-            <input placeholder="Password" id="password" type="password" class="validate" name="password">
-            <label for="password">Password</label>
-        </div>
-         <button class="btn waves-effect waves-light" type="submit" id="login_button" value="submit">Submit
-        </button>
-    </form>
+        {% endif %}
+        <form class="col s12" action="{% url 'comics:login' %}" method="post">
+            {% csrf_token %}
+            <div class="input-field col s12">
+                <input placeholder="Email" id="email" type="email" class="validate" name="email">
+                <label for="email">Email</label>
+            </div>
+            <div class="input-field col s12">
+                <input placeholder="Password" id="password" type="password" class="validate" name="password">
+                <label for="password">Password</label>
+            </div>
+            <div class="card-action">
+                <button class="btn waves-effect waves-light" type="submit" id="login_button" value="submit">Submit
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

@@ -2,3 +2,4 @@ comicsite/__pycache__/
 *.swp
 db.sqlite3
 media/*
+comicsite/media/

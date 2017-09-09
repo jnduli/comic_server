@@ -26,7 +26,7 @@ def path_and_rename(path):
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(instance.concept.slug, ext)
         # return the whole path to the file
-        return os.path.join('media/', path, filename)
+        return os.path.join('media', path, filename)
     return wrapper
 
 class Sketch ( models.Model ):

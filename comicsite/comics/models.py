@@ -3,35 +3,28 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.text import slugify
 from django.conf import settings
+from concept.models import Concept
+from django.utils.deconstruct import deconstructible
 import os
 
 # Create your models here.
 
-class Concept ( models.Model ):
-    title = models.CharField(max_length = 200, unique=True)
-    slug = models.SlugField(unique=True)
-    description = models.TextField(unique=True)
-    characters_no = models.IntegerField(blank=True,null = True)
-    conversation = models.TextField(blank=True,null = True)
-    deleted = models.BooleanField(default=False)
-    date_created = models.DateTimeField(default=timezone.now)
-    user = models.ForeignKey(User)
+@deconstructible
+class PathAndRename(object):
+    def __init__(self, path):
+        self.path = path
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Concept, self).save(*args, **kwargs)
-
-def path_and_rename(path):
-    def wrapper(instance, filename):
+    def __call__(self, instance, filename):
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(instance.concept.slug, ext)
         # return the whole path to the file
-        return os.path.join('media', path, filename)
-    return wrapper
+        return os.path.join('media', self.path, filename)
+
+path_and_rename = PathAndRename('sketches')
 
 class Sketch ( models.Model ):
     concept = models.OneToOneField(Concept)
-    image = models.ImageField(upload_to=path_and_rename('sketches'))
+    image = models.ImageField(upload_to=path_and_rename)
     user = models.ForeignKey(User)
     date_created = models.DateTimeField(default=timezone.now)
     deleted = models.BooleanField(default=False)

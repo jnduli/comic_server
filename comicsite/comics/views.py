@@ -6,8 +6,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
-from .models import Concept, Sketch, Comic
-from .forms import ConceptForm
+from .models import Sketch, Comic
+from concept.models import Concept
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -20,27 +20,6 @@ def system_page(request):
 def page_not_made(request):
     return render(request, 'comics/page_not_made.html')
 
-@method_decorator(login_required(login_url="/comics/login"),name='dispatch')
-class ConceptCreate(SuccessMessageMixin, CreateView):
-    model = Concept
-    form_class = ConceptForm
-    # success_url = '/comics/system/' 
-    success_message = "Concept successfully created"
-
-    def get_success_url(self):
-        return reverse('comics:index')
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(ConceptCreate, self).form_valid(form)
-
-@method_decorator(login_required(login_url="/comics/login"), name="dispatch")
-class ConceptList(ListView):
-    model = Concept
-
-@method_decorator(login_required(login_url="/comics/login"), name="dispatch")
-class ConceptDetail(DetailView):
-    model = Concept
 
 @method_decorator(login_required(login_url="/comics/login"),name='dispatch')
 class SketchCreate(CreateView, SuccessMessageMixin):
@@ -49,7 +28,7 @@ class SketchCreate(CreateView, SuccessMessageMixin):
     success_message = "Sketch successfully created"
 
     def get_success_url(self):
-        return reverse('comics:detail_concept', args=[self.kwargs['pk']])
+        return reverse('concept:detail_concept', args=[self.kwargs['pk']])
 
     def form_valid(self, form):
         form.instance.user = self.request.user

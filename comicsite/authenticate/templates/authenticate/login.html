@@ -1,4 +1,4 @@
-{% extends "comics/main.html" %}
+{% extends "comicsite/main.html" %}
 
 {% block content %}
 <div class="card">
@@ -9,7 +9,7 @@
             {{ error_message }} 
         </div>
         {% endif %}
-        <form class="col s12" action="{% url 'comics:login' %}" method="post">
+        <form class="col s12" action="{% url 'auth:login' %}" method="post">
             {% csrf_token %}
             <div class="input-field col s12">
                 <input placeholder="Email" id="email" type="email" class="validate" name="email">

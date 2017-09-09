@@ -20,6 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^auth/', include('authenticate.urls', namespace='auth') ),
     url(r'^comics/', include('comics.urls',namespace='comics') ),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as login_user
-from django.contrib.auth import logout as logout_user
-from django.contrib.auth.models import User
 from django.urls import reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
@@ -16,31 +13,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Create your views here.
-@login_required(login_url="/comics/login")
+@login_required(login_url=reverse_lazy('auth:login'))
 def system_page(request):
     return render(request, 'comics/homepage.html')
 
 def page_not_made(request):
     return render(request, 'comics/page_not_made.html')
-
-def login(request):
-    email = request.POST.get('email')
-    password = request.POST.get('password')
-    try:
-        user = User.objects.get(email=email)
-        user_logged = authenticate(request, username=user.username, password=password)
-        if user_logged is not None:
-            login_user(request, user_logged)
-            return redirect(reverse('comics:index'))
-        else:
-            error_message = "Could not log in"
-            return render(request, 'comics/login.html', {'error_message':"Could not log in"})
-    except User.DoesNotExist:
-        return render(request, 'comics/login.html', {'error_message':"Email does not exist"})
-
-def logout(request):
-    logout_user(request)
-    return redirect(reverse('comics:login'))
 
 @method_decorator(login_required(login_url="/comics/login"),name='dispatch')
 class ConceptCreate(SuccessMessageMixin, CreateView):

@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+
     'comics',
+    'authenticate',
 ]
 
 MIDDLEWARE = [
@@ -52,10 +55,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'comicsite.urls'
 
+PROJECT_DIR = os.path.dirname(__file__)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(PROJECT_DIR,'templates'),
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

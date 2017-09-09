@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
@@ -22,4 +23,4 @@ def login(request):
 
 def logout(request):
     logout_user(request)
-    return redirect(reverse('authenticate:login'))
+    return redirect(reverse('auth:login'))

@@ -18,8 +18,8 @@ class WriterAddComicTest ( LiveServerTestCase ):
         # opts.profile = fp
         # firefox_capabilities['firefox_profile'] = fp.encode()
         #self.browser = webdriver.Firefox(firefox_options=opts)
-        self.browser = webdriver.Firefox()
-        # self.browser = webdriver.Chrome()
+        # self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):

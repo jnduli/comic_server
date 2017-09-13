@@ -21,22 +21,6 @@ def page_not_made(request):
     return render(request, 'comics/page_not_made.html')
 
 
-@method_decorator(login_required(login_url="/comics/login"),name='dispatch')
-class SketchCreate(CreateView, SuccessMessageMixin):
-    model = Sketch
-    fields = ['image']
-    success_message = "Sketch successfully created"
-
-    def get_success_url(self):
-        return reverse('concept:detail_concept', args=[self.kwargs['pk']])
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.concept = Concept.objects.get(pk=self.kwargs['pk'])
-        return super(SketchCreate, self).form_valid(form)
-
-# TODO: add sketch edit command
-
 @method_decorator(login_required(login_url="/comics/login"), name="dispatch")
 class ComicCreate(CreateView, SuccessMessageMixin):
     model = Comic

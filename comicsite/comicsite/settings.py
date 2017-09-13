@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'comics',
     'authenticate',
     'concept',
+    'sketch',
 ]
 
 MIDDLEWARE = [

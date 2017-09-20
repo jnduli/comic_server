@@ -1,0 +1,9 @@
+# set up github repo for project
+# set up virtual environment
+# install project requirements
+# install gunicorn in virtual environment
+# create folder that will contain gunicorn bash script launcher
+# copy gunicorn bash launcher to server
+# set up project supervisor log file folder
+# copy supervisor config for project to server
+# copy project nginx set up to server

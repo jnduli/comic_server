@@ -1,0 +1,17 @@
+---
+- hosts: my_server
+  remote_user: rookie
+  become: true
+
+  tasks:
+      - name: Updating apt cache
+        apt: update_cache=yes
+      - name: Installing required packages
+        apt: name={{item}} state=present
+        with_items:
+            - git
+            - nginx
+            - supervisor
+
+
+

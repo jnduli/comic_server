@@ -1,3 +1,13 @@
 ---
 
 user: rookie
+
+project_repo: git@gitlab.com:jnduli/comic_server.git
+
+project_name: comic_server
+
+install_root: /home/rookie/projects
+
+venv_root: /home/rookie/venvs
+
+gunicorn_launcher_root: /home/rookie/gunicorn_launchers

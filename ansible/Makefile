@@ -5,3 +5,6 @@ update:
 
 packages:
 	$(ANSIBLE_SUDO) packages.yml
+
+deploy:
+	$(ANSIBLE_SUDO) deploy.yml

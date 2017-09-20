@@ -1,9 +1,45 @@
-# set up github repo for project
-# set up virtual environment
-# install project requirements
-# install gunicorn in virtual environment
-# create folder that will contain gunicorn bash script launcher
-# copy gunicorn bash launcher to server
-# set up project supervisor log file folder
-# copy supervisor config for project to server
-# copy project nginx set up to server
+---
+- hosts: my_server
+  vars_files:
+    - vars.yml
+
+  tasks:
+  # set up github repo for project
+    - name: pull branch master of project
+      git:
+        repo={{ project_repo }}
+        dest={{ install_root }}/{{ project_name }}
+        accept_hostkey=yes
+
+  # set up virtual environment
+  # install project requirements
+    - name: set up virtual env and install requirements
+      pip:
+        requirements={{ install_root }}/{{ project_name }}/requirements.txt
+        virtualenv={{ venv_root }}/{{ project_name }}
+        virtualenv_command="/usr/bib/python3.5 -m venv"
+
+  # install gunicorn in virtual environment
+    - name: install gunicorn in virtual environment
+      pip:
+        virtualenv={{ venv_root }}/{{ project_name }}
+        name=gunicorn
+        state=present
+
+  # create folder that will contain gunicorn bash script launcher
+    - name: create gunicorn scripts directory
+      file:
+        path: {{ gunicorn_launcher_root }}
+        state: directory
+        owner: {{ user }}
+
+
+  # copy gunicorn bash launcher to server
+    - name: copy gunicorn server bash launcher to server
+      
+  # set up project supervisor log file folder
+    - name: create logs folder for supervisor
+  # copy supervisor config for project to server
+    - name: copy supervisor config for project
+  # copy project nginx set up to server
+    - name: set up nginx config on server

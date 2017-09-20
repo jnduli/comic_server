@@ -1,0 +1,13 @@
+---
+- hosts: my_server
+  vars_files:
+    - vars.yml
+  remote_user: "{{ user }}"
+  become: true
+  tasks:
+      - name: Running update and safe-upgrade
+        apt:
+            update_cache=yes
+            upgrade=dist
+        register: result
+      - debug: var=result.stdout_lines

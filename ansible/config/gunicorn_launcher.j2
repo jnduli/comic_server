@@ -1,0 +1,32 @@
+#!/bin/bash
+
+NAME={{ project_name }}
+DJANGODIR={{ django_dir }}
+SOCKFILE={{ sock_file }}
+USER={{ user }}
+NUM_WORKERS=3
+DJANGO_SETTINGS_MODULE={{ django_settings_module }}
+DJANGO_WSGI_MODULE= {{ wsgi_module }}
+
+
+echo "Starting $NAME as `whoami`"
+
+# Activate the virtual environment
+cd $DJANGODIR
+source {{ venv_root }}/{{ project_name }}/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+# export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+# Create the run directory if it doesn't exist
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec {{ venv_root }}/{{ project_name }}/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER \
+  --bind=unix:$SOCKFILE \
+  --log-level=debug \
+--log-file=-

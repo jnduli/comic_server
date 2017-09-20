@@ -36,10 +36,48 @@
 
   # copy gunicorn bash launcher to server
     - name: copy gunicorn server bash launcher to server
-      
+      template:
+        src=config/gunicorn_launcher.j2
+        dest={{ gunicorn_launcher_root }}/{{ project_name }}.sh
+        mode=a+x
+      notify:
+        - restart supervisor
+
   # set up project supervisor log file folder
     - name: create logs folder for supervisor
+      file:
+        path: {{ supervisor_log_root }}
+        state: directory
+        owner: {{ user }}
+
   # copy supervisor config for project to server
-    - name: copy supervisor config for project
+    - name: copy supervisor config for project 
+      remote_user: {{ user }}
+      become: true
+      template:
+        src=config/supervisor.j2
+        dest=/etc/supervisor/conf.d/{{ project_name }}.conf
+      notify:
+        - restart supervisor
+
   # copy project nginx set up to server
     - name: set up nginx config on server
+      remote_user: {{ user }}
+      become: true
+      template:
+        src=config/nginx/j2
+        dest=/etc/nginx/sites-enabled/{{ project_name }}
+      notify:
+        - restart nginx
+
+# handlers
+  handlers:
+    - name: restart supervisor
+      remote_user: {{ user }}
+      become: true
+      service: name=supervisor state=restarted
+
+    - name: restart nginx
+      remote_user: {{ user }}
+      become: true
+      service: name=nginx state=restarted

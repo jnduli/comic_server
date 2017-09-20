@@ -11,3 +11,17 @@ install_root: /home/rookie/projects
 venv_root: /home/rookie/venvs
 
 gunicorn_launcher_root: /home/rookie/gunicorn_launchers
+
+django_dir: "{{ install_dir }}/{{ project_name }}/comicsite"
+
+django_settings_module: comicsite.production_settings
+
+wsgi_module: comicsite.wsgi
+
+sock_root: /home/rookie/socks
+
+sock_file: "{{ sock_root }}/{{ project_name }}.sock"
+
+supervisor_log_root: /home/rookie/supervisor_logs
+
+server_name: jnduli.co.ke www.jnduli.co.ke

@@ -1,0 +1,6 @@
+[program:{{ project_name }}]
+command = {{ gunicorn_launcher_root }}/{{ project_name }}.sh
+user = {{ user }}                                                        
+stdout_logfile = {{ supervisor_log_root }}/{{ project_name }}.log
+redirect_stderr = true
+environment=LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8 ; Set UTF-8 as default encoding

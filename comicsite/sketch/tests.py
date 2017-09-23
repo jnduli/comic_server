@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test import TransactionTestCase
 from django.contrib.auth.models import User
+from django.urls import reverse
 from concept.models import Concept
 from .models import Sketch
 import os
@@ -39,5 +40,11 @@ class SketchTestCase(TransactionTestCase):
         # # sketch = self.concept.sketch
         # self.assertTrue(os.path.exists(sketch.image))
         # self.assertTrue("title" in sketch.image)
+
+    def test_sketch_edit_url_fail(self):
+        url = '/sketch/concept/' + str(self.concept.id) + '/edit_sketch/'
+        response = self.client.get(url, follow=True)
+        self.assertRedirects(response, '%s?next=%s' %(reverse('auth:login'),url))
+        response = self.client.get('/sketch/concept/' + str(self.concept.id) + '/edit_sketch', follow = True)
 
     # test posting image 

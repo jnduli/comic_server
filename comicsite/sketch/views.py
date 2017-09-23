@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Sketch
@@ -22,5 +23,9 @@ class SketchCreate(CreateView, SuccessMessageMixin):
         form.instance.concept = Concept.objects.get(pk=self.kwargs['pk'])
         return super(SketchCreate, self).form_valid(form)
 
-# TODO: add sketch edit command
+
+@method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
+class SketchUpdate(UpdateView):
+    model = Sketch
+    fields = ['image']
 

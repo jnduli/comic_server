@@ -6,7 +6,7 @@ class ConceptForm(forms.ModelForm):
             widget=forms.Textarea(attrs={'class': 'materialize-textarea'}),
             max_length=4000
             )
-    characters = forms.CharField(
+    characters_no = forms.CharField(
             widget=forms.NumberInput(),
             required=False
             )

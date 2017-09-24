@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.test import TransactionTestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.conf import settings
 from concept.models import Concept
 from .models import Sketch
 import os
@@ -21,30 +22,53 @@ class SketchTestCase(TransactionTestCase):
 
 
     def test_sketch_create_url_fail(self):
-        response = self.client.get('/sketch/concept/'+ str(self.concept.id) + '/add_sketch', follow=True )
+        url = '/sketch/concept/'+ str(self.concept.id) + '/add_sketch/'
+        response = self.client.get(url, follow=True )
         self.assertNotEqual(response.status_code, 404)
-        self.assertTrue("/auth/login" in str(response.redirect_chain))
+        self.assertRedirects(response, '%s?next=%s' %(reverse('auth:login'), url))
+        #  self.assertTrue("/auth/login" in str(response.redirect_chain))
 
     def test_sketch_create_url_pass(self):
         self.client.login(username='rookie', password='password101')
-        response = self.client.get('/sketch/concept/'+ str(self.concept.id) + '/add_sketch', follow=True )
-        self.assertEqual(len(response.redirect_chain), 1)
+        url = '/sketch/concept/'+ str(self.concept.id) + '/add_sketch/'
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
 
     def test_upload_sketch(self):
+        self.client.login(username='rookie', password='password101')
         test_image = open(os.path.join(os.getcwd(),'test.png'), "rb")
         # test_image.name = test_image.name.encode()
-        response = self.client.post('/sketch/concept/'+ str(self.concept.id) + '/add_sketch', {'name': test_image}, format='multipart')
-        print(response.status_code)
-        print(response.content)
-        # sketch = Sketch.objects.get(concept = self.concept)
-        # # sketch = self.concept.sketch
-        # self.assertTrue(os.path.exists(sketch.image))
-        # self.assertTrue("title" in sketch.image)
+        url = '/sketch/concept/'+ str(self.concept.id) + '/add_sketch/'
+        response = self.client.post(url , {'image': test_image}, format='multipart', follow=True)
+        sketch = Sketch.objects.get(concept = self.concept)
+        self.assertTrue("title" in sketch.image.name)
+        self.assertRedirects(response, reverse('concept:detail_concept', kwargs={'pk':self.concept.pk}))
+
+    def upload_sketch(self):
+        self.client.login(username='rookie', password='password101')
+        test_image = open(os.path.join(os.getcwd(),'test.png'), "rb")
+        url = '/sketch/concept/'+ str(self.concept.id) + '/add_sketch/'
+        response = self.client.post(url , {'image': test_image}, format='multipart', follow=True)
 
     def test_sketch_edit_url_fail(self):
         url = '/sketch/concept/' + str(self.concept.id) + '/edit_sketch/'
         response = self.client.get(url, follow=True)
         self.assertRedirects(response, '%s?next=%s' %(reverse('auth:login'),url))
-        response = self.client.get('/sketch/concept/' + str(self.concept.id) + '/edit_sketch', follow = True)
 
-    # test posting image 
+    def test_sketch_edit_url_pass(self):
+        self.upload_sketch()
+        self.client.login(username='rookie', password='password101')
+        url = '/sketch/concept/' + str(self.concept.id) + '/edit_sketch/'
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_sketch(self):
+        self.upload_sketch()
+        self.client.login(username='rookie', password='password101')
+        test_image = open(os.path.join(os.getcwd(),'test.png'), "rb")
+        # test_image.name = test_image.name.encode()
+        url = '/sketch/concept/'+ str(self.concept.id) + '/edit_sketch/'
+        response = self.client.post(url , {'image': test_image}, format='multipart', follow=True)
+        sketch = Sketch.objects.get(concept = self.concept)
+        # sketch = self.concept.sketch
+        self.assertTrue("title" in sketch.image.name)

@@ -19,6 +19,17 @@
         virtualenv={{ venv_root }}/{{ project_name }}
         virtualenv_command="/usr/bib/python3.5 -m venv"
 
+    - name: set up migrations and migrate
+      django_manage:
+        command=migrate
+        virtualenv={{ venv_root }}/{{ project_name }}
+        app_path={{ django_dir }}
+
+    - name: create superuser for administration
+      django_manage:
+        command: "createsuperuser --noinput --username=admin --email=yohanaizraeli@gmail.com"
+        app_path: "{{ django_dir }}"
+
   # install gunicorn in virtual environment
     - name: install gunicorn in virtual environment
       pip:
@@ -29,9 +40,9 @@
   # create folder that will contain gunicorn bash script launcher
     - name: create gunicorn scripts directory
       file:
-        path: {{ gunicorn_launcher_root }}
-        state: directory
-        owner: {{ user }}
+        path={{ gunicorn_launcher_root }}
+        state=directory
+        owner={{ user }}
 
 
   # copy gunicorn bash launcher to server
@@ -46,13 +57,13 @@
   # set up project supervisor log file folder
     - name: create logs folder for supervisor
       file:
-        path: {{ supervisor_log_root }}
-        state: directory
-        owner: {{ user }}
+        path={{ supervisor_log_root }}
+        state=directory
+        owner={{ user }}
 
   # copy supervisor config for project to server
-    - name: copy supervisor config for project 
-      remote_user: {{ user }}
+    - name: copy supervisor config for project
+      remote_user: "{{ user }}"
       become: true
       template:
         src=config/supervisor.j2
@@ -60,24 +71,10 @@
       notify:
         - restart supervisor
 
-  # copy project nginx set up to server
-    - name: set up nginx config on server
-      remote_user: {{ user }}
-      become: true
-      template:
-        src=config/nginx/j2
-        dest=/etc/nginx/sites-enabled/{{ project_name }}
-      notify:
-        - restart nginx
 
 # handlers
   handlers:
     - name: restart supervisor
-      remote_user: {{ user }}
+      remote_user: "{{ user }}"
       become: true
       service: name=supervisor state=restarted
-
-    - name: restart nginx
-      remote_user: {{ user }}
-      become: true
-      service: name=nginx state=restarted

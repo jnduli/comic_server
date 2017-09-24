@@ -3,6 +3,6 @@ from comics import views
 
 urlpatterns = [
         #url(r'^$', views.system_page),
-        url(r'^/', views.system_page, name='index'), 
+        url(r'^$', views.system_page, name='index'), 
         url(r'^not_made/', views.page_not_made, name='not_made'),
         ]

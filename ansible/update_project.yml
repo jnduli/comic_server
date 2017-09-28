@@ -9,6 +9,8 @@
         repo={{ project_repo }}
         dest={{ install_root }}/{{ project_name }}
         accept_hostkey=yes
+      notify:
+        - restart supervisor
 
   # set up virtual environment
   # install project requirements
@@ -30,3 +32,10 @@
         # virtualenv: "{{ venv_root }}/{{ project_name }}"
         # command: "createsuperuser --noinput --username=admin --email=yohanaizraeli@gmail.com"
         # app_path: "{{ django_dir }}
+        #
+# handlers
+  handlers:
+    - name: restart supervisor
+      remote_user: "{{ user }}"
+      become: true
+      service: name=supervisor state=restarted

@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- load MUI -->
+    <link href="//cdn.muicss.com/mui-0.9.26/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.9.26/js/mui.min.js"></script>
+  </head>
+  <body>
+    <!-- example content -->
+    <div class="mui-container">
+      <header class="mui-appbar">
+        <table width="100%">
+          <tr class="mui--appbar-height">
+            <td class="mui--text-title">Comics</td>
+            <td align="right">
+              <ul class="mui-list--inline mui--text-body2 mui--text-light">
+                <li><a class="mui--text-light" href="#">Blog</a></li>
+                <li><a class="mui--text-light" href="{% url 'auth:login' %}">Login</a></li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </header>
+      <div class="mui-panel">
+        <h1>Comics</h1>
+        <h3>No comics yet in the system</h3>
+      </div>
+    </div>
+  </body>
+</html>

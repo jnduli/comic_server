@@ -24,4 +24,8 @@ sock_file: "{{ sock_root }}/{{ project_name }}.sock"
 
 supervisor_log_root: /home/rookie/supervisor_logs
 
-server_name: jnduli.co.ke www.jnduli.co.ke
+server_name: comics.jnduli.co.ke www.comics.jnduli.co.ke
+
+static_files_root: /var/www/static_files
+media_root: "{{ static_files_root }}/media"
+static_root: "{{ static_files_root }}/static"

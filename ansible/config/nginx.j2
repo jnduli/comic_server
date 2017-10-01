@@ -1,12 +1,22 @@
 server {
-    #listen 443;
+#listen 443;
     listen 80;
     server_name {{ server_name }};
     charset utf-8;
 
     location / {
-        # django
+# django
         include proxy_params;
         proxy_pass http://unix:{{ sock_file }};
+    }
+
+    location /static {
+        autoindex on;
+        alias {{ static_root }};
+    }
+
+    location /media {
+        autoindex on;
+        alias {{ media_root }};
     }
 }

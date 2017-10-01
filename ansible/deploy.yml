@@ -19,16 +19,34 @@
         virtualenv={{ venv_root }}/{{ project_name }}
         virtualenv_command="/usr/bin/python3.5 -m venv"
 
+    # set up folders for static files
+    - name: set up static folders
+      remote_user: "{{ user }}"
+      become: true
+      file:
+        path={{ item }}
+        state=directory
+        owner={{ user }}
+      with_items:
+        - "{{ static_root }}"
+        - "{{ media_root }}"
+
+    - name: set up static files
+      django_manage:
+        command=collectstatic
+        virtualenv={{ venv_root }}/{{ project_name }}
+        app_path={{ django_dir }}
+
     - name: set up migrations and migrate
       django_manage:
         command=migrate
         virtualenv={{ venv_root }}/{{ project_name }}
         app_path={{ django_dir }}
-
-    - name: create superuser for administration
-      django_manage:
-        command: "createsuperuser --noinput --username=admin --email=yohanaizraeli@gmail.com"
-        app_path: "{{ django_dir }}"
+#
+    # - name: create superuser for administration
+      # django_manage:
+        # command: "createsuperuser --noinput --username=admin --email=yohanaizraeli@gmail.com"
+        # app_path: "{{ django_dir }}"
 
   # install gunicorn in virtual environment
     - name: install gunicorn in virtual environment

@@ -10,4 +10,4 @@ class PathAndRename(object):
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(instance.concept.slug, ext)
         # return the whole path to the file
-        return os.path.join('media', self.path, filename)
+        return os.path.join(self.path, filename)

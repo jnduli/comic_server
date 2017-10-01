@@ -2,12 +2,55 @@
 
 {% block page %}
 
-<header><h4>{{ object.title }}</h4></header>
+<header class="row">
+    <h4 class="col s6 left-align">{{ object.title }}</h4>
+    {% if object.published %}
+    <h5 class="col s6 right-align"><a href="{% url 'concept:publish_concept' object.id %}">Unpublish</a></h5>
+    {% else %}
+    <h5 class="col s6 right-align"><a href="{% url 'concept:publish_concept' object.id %}">Publish</a></h5>
+    {% endif %}
+</header>
+<ul class="collection">
+    <li class="collection-item">Description: {{ object.description }}</li>
+    <li class="collection-item">Conversation: {{ object.conversation }}</li>
+    <li class="collection-item">Date Created: {{ object.date_created }}</li>
+    <li class="collection-item">User: {{ object.user.name }}</li>
+    <li class="collection-item">Characters Number: {{ object.characters_no }}</li>
+    {% if concept.published %}
+    <li class="collection-item">Date Published: {{ object.date_published }}</li>
+    {% endif %}
+    <li class="collection-item"><a href="{% url 'concept:edit_concept' object.id %}">Edit concept details</a></li>
+</ul>
 
-{% if object.sketch %}
-<img id='sketch_image' class="responsive-img" src="{{ object.sketch.image.url }}"></img>
-<a class="btn waves-effect waves-light" id="sketch_edit" href="{% url 'sketch:sketch_edit' object.id %}">Edit Sketch</a>
-{% else %}
-<a class="btn waves-effect waves-light" id="sketch_add" href="{% url 'sketch:sketch_create' object.id %}">Add Sketch</a>
-{% endif %}
+
+<div class="row">
+    {% if object.sketch %}
+    <img id='sketch_image' class="responsive-img" src="{{ object.sketch.image.url }}"></img>
+    <a class="btn waves-effect waves-light" id="sketch_edit" href="{% url 'sketch:sketch_edit' object.id %}">Edit Sketch</a>
+    {% else %}
+    <a class="btn waves-effect waves-light" id="sketch_add" href="{% url 'sketch:sketch_create' object.id %}">Add Sketch</a>
+    {% endif %}
+</div>
+
+<div class="row">
+    {% if object.sketch and object.gimp %}
+    <!-- add file download path -->
+    <a href="{{ object.gimp.file_gimp.url }}">Gimp File Download</a>
+    <!-- <img id='sketch_image' class="responsive-img" src="{{ object.sketch.image.url }}"></img> -->
+    <a class="btn waves-effect waves-light" id="gimp_edit" href="{% url 'gimp:gimp_edit' object.id %}">Edit Gimp File</a>
+    {% else %}
+    <a class="btn waves-effect waves-light" id="gimp_add" href="{% url 'gimp:gimp_create' object.id %}">Add Gimp File</a>
+    {% endif %}
+</div>
+
+<div class="row">
+    {% if object.sketch and object.gimp and object.strip %}
+    <!-- add file download path -->
+    <img id='strip_image' class="responsive-img" src="{{ object.strip.image.url }}"></img>
+    <a class="btn waves-effect waves-light" id="strip_edit" href="{% url 'strip:strip_edit' object.id %}">Edit Strip</a>
+    {% elif object.sketch and object.gimp %}
+    <a class="btn waves-effect waves-light" id="strip_add" href="{% url 'strip:strip_create' object.id %}">Add Strip</a>
+    {% endif %}
+</div>
+
 {% endblock %}

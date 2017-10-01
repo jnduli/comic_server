@@ -21,16 +21,16 @@ def page_not_made(request):
     return render(request, 'comics/page_not_made.html')
 
 
-@method_decorator(login_required(login_url="/comics/login"), name="dispatch")
-class ComicCreate(CreateView, SuccessMessageMixin):
-    model = Comic
-    fields = ['work_files']
-    success_message = "Comic successfully created"
-
-    def get_success_url(self):
-        return reverse('comics:detail_concept', args=[self.kwargs['pk']])
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.sketch= Sketch.objects.get(pk=self.kwargs['pk'])
-        return super(SketchCreate, self).form_valid(form)
+#  @method_decorator(login_required(login_url="/comics/login"), name="dispatch")
+#  class ComicCreate(CreateView, SuccessMessageMixin):
+    #  model = Comic
+    #  fields = ['work_files']
+    #  success_message = "Comic successfully created"
+#
+    #  def get_success_url(self):
+        #  return reverse('comics:detail_concept', args=[self.kwargs['pk']])
+#
+    #  def form_valid(self, form):
+        #  form.instance.user = self.request.user
+        #  form.instance.sketch= Sketch.objects.get(pk=self.kwargs['pk'])
+        #  return super(SketchCreate, self).form_valid(form)

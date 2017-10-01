@@ -21,27 +21,18 @@
             {% for concept in object_list %}
             <tr>
                 <td>{{ concept.title }}</td>
-
                 {% if concept.sketch %}
                 <td>Yes</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
 
-                {% if concept.sketch.comic %}
-                <td>Yes</td>
-                {% if concept.sketch.comic.published %}
+                {% if concept.published %}
                 <td>published</td>
                 {% else %}
                 <td>unpublished</td>
                 {% endif %}
-                {% else %}
-                <td>None</td>
-                <td>unpublished</td>
-                {% endif %}
 
-                {% else %}
-                <td>None</td>
-                <td>None</td>
-                <td>unpublished</td>
-                {% endif %}
                 <td><a href="{% url 'concept:detail_concept' concept.id %}">details</a></td>
             </tr>
             {% empty %}

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'concept',
     'sketch',
     'gimp',
+    'strip',
     'public',
 ]
 

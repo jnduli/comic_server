@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#2g6xfo7*zfl&@!47adslek@52m7ne8h+&^s-s@@mwes$=^w-q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['comics.jnduli.co.ke', 'www.comics.jnduli.co.ke']
 
@@ -131,5 +131,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # directories for static files
-ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+ENV_PATH = '/var/www/static_files/'
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
+STATIC_ROOT = os.path.join(ENV_PATH, 'static/')

@@ -7,6 +7,8 @@ from django.contrib import messages
 def home_page(request, slug=""):
     if (slug == "" ):
         concept = Concept.objects.random()
+        if (concept == None):
+            return render(request, 'public/homepage.html')
         return redirect(reverse('public:slug', args=[concept.slug]))
     else:
         concept = Concept.objects.get(slug=slug)

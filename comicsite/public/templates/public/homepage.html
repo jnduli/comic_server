@@ -25,6 +25,7 @@
         </table>
       </header>
       <div class="mui-panel">
+        {% if concept %}
         <div class="mui-row mui--text-center">
           <h2 class="mui-col-xs-4">
             <a class="mui-btn" href="{% url 'public:previous' concept.slug %}">Previous</a>
@@ -35,6 +36,7 @@
           <h2 class="mui-col-xs-4">
             <a class="mui-btn" href="{% url 'public:next' concept.slug %}">Next</a></h1>
         </div>
+        {% endif %}
         {% if messages %}
         <div style="background-color:#444" class="messages left-align">
           {% for message in messages %}

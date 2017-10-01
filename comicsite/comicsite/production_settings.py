@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'authenticate',
     'concept',
     'sketch',
+    'gimp',
+    'strip',
     'public',
 ]
 

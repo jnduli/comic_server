@@ -16,4 +16,5 @@
             - supervisor
             - postgresql
             - postgresql-contrib
+            - python-psycopg2
 

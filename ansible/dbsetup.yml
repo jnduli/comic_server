@@ -1,0 +1,20 @@
+---
+- hosts: my_server
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: set up database
+      become: true
+      become_user: postgres
+      postgresql_db:
+        name: comic_server
+
+    - name: set up user for database
+      become: true
+      become_user: postgres
+      postgresql_user:
+        db: comic_server
+        name: rookie_comic
+        password: proasskicmic4
+

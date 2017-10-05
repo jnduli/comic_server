@@ -36,12 +36,15 @@
         command=collectstatic
         virtualenv={{ venv_root }}/{{ project_name }}
         app_path={{ django_dir }}
+        settings={{ django_settings_module }}
 
     - name: set up migrations and migrate
       django_manage:
         command=migrate
         virtualenv={{ venv_root }}/{{ project_name }}
         app_path={{ django_dir }}
+        settings={{ django_settings_module }}
+
 #
     # - name: create superuser for administration
       # django_manage:
@@ -49,11 +52,14 @@
         # app_path: "{{ django_dir }}"
 
   # install gunicorn in virtual environment
-    - name: install gunicorn in virtual environment
+    - name: install gunicorn and psycopg2 in virtual environment
       pip:
         virtualenv={{ venv_root }}/{{ project_name }}
-        name=gunicorn
+        name={{ item }}
         state=present
+      with_items:
+        - gunicorn
+        - psycopg2
 
   # create folder that will contain gunicorn bash script launcher
     - name: create gunicorn scripts directory

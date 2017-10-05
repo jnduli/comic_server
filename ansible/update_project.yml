@@ -25,6 +25,9 @@
         virtualenv: "{{ venv_root }}/{{ project_name }}"
         command: migrate
         app_path: "{{ django_dir }}"
+        settings: "{{ django_settings_module }}"
+
+
 
         # super user will be create on the server by the user
     # - name: create superuser for administration

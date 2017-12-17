@@ -27,7 +27,7 @@ class WriterAddComicTest ( LiveServerTestCase ):
 
     def test_can_add_comic(self):
         #John accesses the login portal
-        self.browser.get(self.url+'/comics/system')
+        self.browser.get(self.url+'/system')
         self.assertIn('Comics', self.browser.title)
         #John inputs his email john@email.com and password password
         email_box = self.browser.find_element_by_id("email")
@@ -74,20 +74,17 @@ class WriterAddComicTest ( LiveServerTestCase ):
         # The concept should show whether it has a sketch or not
         concept_sketch = self.browser.find_element_by_css_selector('td:nth-of-type(2)')
         self.assertEquals("None", concept_sketch.text)
-        # The concept should show whether it has a comic or not
-        concept_comic = self.browser.find_element_by_css_selector('td:nth-of-type(3)')
-        self.assertEquals("None", concept_comic.text)
         # The concept should show whether the comic is published or not
-        concept_comic_pub = self.browser.find_element_by_css_selector("td:nth-of-type(4)")
+        concept_comic_pub = self.browser.find_element_by_css_selector("td:nth-of-type(3)")
         self.assertEquals("unpublished",concept_comic_pub.text)
         #He clicks on it
-        concept_details = self.browser.find_element_by_css_selector('td:nth-of-type(5) a')
+        concept_details = self.browser.find_element_by_css_selector('td:nth-of-type(4) a')
         self.assertEquals('details', concept_details.text)
         concept_details.click()
         #He is directed to a page where he can either edit the concept or add a sketch
         print(self.browser.current_url)
         concept_header = self.browser.find_element_by_css_selector('header')
-        self.assertEquals('today i dont know what to say', concept_header.text)
+        self.assertIn('today i dont know what to say', concept_header.text)
         # He sees a button written 'Add sketch'
         sketch_add_button = self.browser.find_element_by_id('sketch_add')
         self.assertEquals('Add Sketch'.upper(), sketch_add_button.text.upper())

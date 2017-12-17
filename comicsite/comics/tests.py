@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class SystemPageTest (TestCase):
 
     def test_system_page_url_resolves(self):
-        found = resolve('/comics/system/')
+        found = resolve('/system/')
         self.assertEqual(found.func, system_page)
 
     def test_system_page_returns_correct_html(self):

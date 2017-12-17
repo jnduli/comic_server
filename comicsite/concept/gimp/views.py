@@ -7,15 +7,15 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 
 from concept.models import Concept
-from strip.models import Strip
+from concept.gimp.models import Gimp
 
 # Create your views here.
 
 @method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
-class StripCreate(CreateView, SuccessMessageMixin):
-    model = Strip
-    fields = ['image']
-    success_message = "Strip file successfully uploaded"
+class GimpCreate(CreateView, SuccessMessageMixin):
+    model = Gimp
+    fields = ['file_gimp']
+    success_message = "Gimp file successfully uploaded"
 
     def get_success_url(self):
         return reverse('concept:detail_concept', args=[self.kwargs['pk']])
@@ -23,20 +23,18 @@ class StripCreate(CreateView, SuccessMessageMixin):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.concept = Concept.objects.get(pk=self.kwargs['pk'])
-        return super(StripCreate, self).form_valid(form)
+        return super(GimpCreate, self).form_valid(form)
 
 @method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
-class StripUpdate(UpdateView, SuccessMessageMixin):
-    model = Strip
-    fields = ['image']
-    success_message = "Strip file successfully updated"
+class GimpUpdate(UpdateView, SuccessMessageMixin):
+    model = Gimp
+    fields = ['file_gimp']
+    success_message = "Gimp file successfully updated"
 
     def get_object(self, queryset=None):
-        strip = Concept.objects.get(id=self.kwargs['pk']).strip
-        return strip
+        gimp = Concept.objects.get(id=self.kwargs['pk']).gimp
+        return gimp
 
     def get_success_url(self):
         return reverse('concept:detail_concept', args=[self.kwargs['pk']])
 
-
-# Create your views here.

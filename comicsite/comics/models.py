@@ -8,7 +8,7 @@ import os
 
 from comicsite.utils import PathAndRename
 from concept.models import Concept
-from sketch.models import Sketch
+from concept.sketch.models import Sketch
 # Create your models here.
 
 

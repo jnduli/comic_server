@@ -5,7 +5,7 @@ from concept.models import Concept
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from strip.models import Strip
+from concept.strip.models import Strip
 import os
 # Create your tests here.
 

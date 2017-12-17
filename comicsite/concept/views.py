@@ -14,7 +14,7 @@ from django.utils import timezone
 
 from .models import Concept
 from .forms import ConceptForm
-from strip.models import Strip
+from concept.strip.models import Strip
 
 # Create your views here.
 

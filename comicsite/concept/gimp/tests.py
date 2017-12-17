@@ -5,7 +5,7 @@ from concept.models import Concept
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from gimp.models import Gimp
+from concept.gimp.models import Gimp
 # Create your tests here.
 
 class GimpTestCase(TransactionTestCase):

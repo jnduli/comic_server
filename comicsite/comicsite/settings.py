@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     'comics',
     'authenticate',
     'concept',
-    'sketch',
-    'gimp',
-    'strip',
+    'concept.sketch',
+    'concept.gimp',
+    'concept.strip',
     'public',
 ]
 

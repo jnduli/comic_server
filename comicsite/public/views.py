@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, redirect
 from concept.models import Concept
 from django.contrib import messages
+from django.conf import settings
 
 # Create your views here.
 
@@ -14,6 +15,7 @@ def home_page(request, slug=""):
         concept = Concept.objects.get(slug=slug)
         # choose the comic in strip
     context = {
+            'analytics_tracking_id' : settings.ANALYTICS_TRACKING_ID,
             'concept' : concept
             }
     return render(request, 'public/homepage.html', context)

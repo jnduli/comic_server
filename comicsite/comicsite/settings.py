@@ -136,3 +136,5 @@ MEDIA_URL = '/media/'
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
+
+ANALYTICS_TRACKING_ID = ''

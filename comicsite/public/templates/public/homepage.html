@@ -1,6 +1,18 @@
 <!doctype html>
 <html>
   <head>
+
+
+    {% if analytics_tracking_id %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89300561-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', {{ analytics_tracking_id }});
+    </script>
+    {% endif %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +30,6 @@
             <td align="right">
               <ul class="mui-list--inline mui--text-body2 mui--text-light">
                 <li><a class="mui--text-light" href="https://jnduli.co.ke">Blog</a></li>
-                <li><a class="mui--text-light" href="{% url 'comics:index' %}">Login</a></li>
               </ul>
             </td>
           </tr>

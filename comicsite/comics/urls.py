@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from comics import views
 
+app_name="comics"
 urlpatterns = [
         #url(r'^$', views.system_page),
         url(r'^$', views.system_page, name='index'), 

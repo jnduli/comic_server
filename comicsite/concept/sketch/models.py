@@ -11,8 +11,8 @@ from comicsite.utils import PathAndRename
 path_and_rename = PathAndRename('sketches')
 
 class Sketch ( models.Model ):
-    concept = models.OneToOneField(Concept)
+    concept = models.OneToOneField(Concept, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=path_and_rename)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     deleted = models.BooleanField(default=False)

@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from public import views
 
+app_name="public"
 urlpatterns = [
         url(r'^$', views.home_page, name='index'),
         url(r'^pub/(?P<slug>[-\w]+)/$', views.home_page, name='slug'),

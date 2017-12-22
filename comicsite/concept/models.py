@@ -28,7 +28,7 @@ class Concept ( models.Model ):
     date_created = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=False)
     date_published = models.DateTimeField(blank=True, null=True)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     objects = ConceptManager()
 
     def save(self, *args, **kwargs):

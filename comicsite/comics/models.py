@@ -13,8 +13,8 @@ from concept.sketch.models import Sketch
 
 
 class Comic ( models.Model ):
-    user = models.ForeignKey(User)
-    sketch = models.OneToOneField(Sketch)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sketch = models.OneToOneField(Sketch, on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
     deleted = models.BooleanField(default=True)
     date_created = models.DateTimeField(default=timezone.now)
@@ -23,6 +23,6 @@ class Comic ( models.Model ):
     files_type = models.CharField(max_length=50)
 
 class Strip ( models.Model ):
-    comic = models.ForeignKey(Comic)
+    comic = models.ForeignKey(Comic, on_delete=models.CASCADE)
     image = models.ImageField(PathAndRename('strips'))
     position = models.IntegerField();

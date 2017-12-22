@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from concept import views
 
+app_name="concept"
 urlpatterns = [
         url(r'^add_concept/', views.ConceptCreate.as_view(), name='add_concept'),
         url(r'^edit_concept/(?P<pk>[0-9]+)/$', views.ConceptUpdate.as_view(),name='edit_concept'),

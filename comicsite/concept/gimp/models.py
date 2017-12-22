@@ -9,8 +9,8 @@ from comicsite.utils import PathAndRename
 path_and_rename = PathAndRename('gimp')
 
 class Gimp( models.Model ):
-    concept = models.OneToOneField(Concept)
-    user = models.ForeignKey(User)
+    concept = models.OneToOneField(Concept, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     deleted = models.BooleanField(default=False)
     file_gimp = models.FileField(upload_to=path_and_rename)

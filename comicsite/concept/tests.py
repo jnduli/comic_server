@@ -76,3 +76,44 @@ class ConceptTestCase(TransactionTestCase):
             'conversation': 'random conversation'
             }, follow=True)
         self.assertTrue(Concept.objects.filter(title=new_title).exists())
+
+    def create_concepts(self):
+        con = Concept(title='test edit concept', description='this is a test concept',
+                characters_no = 2, published=True)
+        con.user = self.user
+        con.save()
+        con = Concept(title='another edit concept', description='zen of is a test concept',
+                characters_no = 2)
+        con.user = self.user
+        con.save()
+        con = Concept(title='zen of edit concept', description='another this is a test concept',
+                characters_no = 2, published=True)
+        con.user = self.user
+        con.save()
+
+    def test_concept_list(self):
+        self.create_concepts()
+        self.client.login(username='rookie', password='password101')
+        response = self.client.get('/concept/list_concepts/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        firstConcept = response.context['object_list'][0]
+        secondConcept = response.context['object_list'][1]
+        self.assertEqual(firstConcept.title, 'zen of edit concept')
+        
+        response = self.client.get('/concept/list_concepts/', {'orderby':'date_created'})
+        firstConcept = response.context['object_list'][0]
+        self.assertEqual(firstConcept.title, 'test edit concept')
+
+        response = self.client.get('/concept/list_concepts/', {'filter' : 'False'})
+        firstConcept = response.context['object_list'][0]
+        self.assertEqual(firstConcept.title, 'another edit concept')
+        
+        
+        #  print(firstConcept.title, firstConcept.date_created)
+        #  print(secondConcept.title, secondConcept.date_created)
+        # TODO test ordering by date_created
+        # TODO test ordering by title
+        # TODO test ordereing by published
+
+        #  // create 3 concepts
+        #  // test if they'll be ordered accoring to date

@@ -36,6 +36,27 @@ class ConceptCreate(SuccessMessageMixin, CreateView):
 class ConceptList(ListView):
     model = Concept
 
+    def get_queryset(self):
+        order = self.request.GET.get('orderby', '-date_created')
+        filter_val = self.request.GET.get('filter', '')
+        if filter_val == '':
+            return Concept.objects.all().order_by(order)
+        else:
+            return Concept.objects.filter(published = filter_val).order_by(order)
+
+    def get_context_data(self, **kwargs):
+        context = super(ConceptList, self).get_context_data(**kwargs)
+        context['filter'] = self.request.GET.get('filter', '')
+        context['orderby'] = self.request.GET.get('orderby', '-date_created')
+        return context
+    #  def get_queryset(self):
+        #  ordering = self.request.GET.get('ordering', '-date_created')
+        #  return Concept.objects.order_by(ordering)
+#
+    #  def get_ordering(self):
+        #  ordering = self.request.GET.get('ordering', '-date_created')
+        #  return ordering
+
 @method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
 class ConceptDetail(DetailView):
     model = Concept

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 from comics.views import system_page
 from django.http import HttpRequest
 from django.contrib.auth.models import User

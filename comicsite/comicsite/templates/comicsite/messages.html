@@ -1,16 +1,16 @@
 {% if messages %}
-<div class="messages left-align">
+<div class="messages mui--text-left">
   {% for message in messages %}
     {% if "info" in message.tags %}
-    <div class="card-panel blue lighten-2" id="info">{{ message }}</div>
+    <div class="mui-panel mui--bg-primary" id="info">{{ message }}</div>
     {% elif "success" in message.tags %}
-    <div class="card-panel teal lighten-2" id="success">{{ message }}</div>
+    <div class="mui-panel mui--bg-primary-light" id="success">{{ message }}</div>
     {% elif "error" in message.tags %}
-    <div class="card-panel red lighten-2" id="error">{{ message }}</div>
+    <div class="mui-panel mui--bg-danger" id="error">{{ message }}</div>
     {% elif "warning" in message.tags %}
-    <div class="card-panel orange lighten-2" id="warning">{{ message }}</div>
+    <div class="mui-panel mui--bg-accent-hint" id="warning">{{ message }}</div>
     {% else %}
-    <div class="card-panel" id="message">{{ message }}</div>
+    <div class="mui-panel" id="message">{{ message }}</div>
     {% endif%}
   {% endfor %}
 </div>

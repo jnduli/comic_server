@@ -1,35 +1,28 @@
 {% extends "comicsite/main.html" %}
 {% block content %}
-<nav class="nav-extended">
-    <div class="nav-wrapper">
-        <a href="{% url 'comics:index' %}" class="brand-logo">Comics System</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{% url 'comics:not_made' %}">Profile</a></li>
-            <li><a href="{% url 'auth:logout' %}">Logout</a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-            <li><a href="{% url 'comics:not_made' %}">Profile</a></li>
-            <li><a href="{% url 'auth:logout' %}">Logout</a></li>
-        </ul>
-    </div>
-    <div class="nav-content">
-        <ul class="tabs tabs-transparent">
-            <li class="tab"><a target="_self" href="{% url 'concept:add_concept' %}">Add Concept</a></li>
-            <li class="tab"><a target="_self" href="{% url 'concept:list_concepts' %}">Concepts</a></li>
-            <li class="tab"><a target="_self" href="{% url 'concept:list_concepts' %}?filter=True">Published Concepts</a></li>
-            <li class="tab"><a target="_self" href="{% url 'concept:list_concepts' %}?filter=False">Unpublished Concepts</a></li>
-        </ul>
-    </div>
-    <!--<div class="nav-content">-->
-    <!--<ul class="tabs tabs-transparent">-->
-    <!--<li class="tab"><a href="#test1">Test 1</a></li>-->
-    <!--<li class="tab"><a class="active" href="#test2">Test 2</a></li>-->
-    <!--<li class="tab disabled"><a href="#test3">Disabled Tab</a></li>-->
-    <!--<li class="tab"><a href="#test4">Test 4</a></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-</nav>
+<header class="mui-appbar">
+    <table width="100%">
+        <tr class="mui--appbar-height">
+            <td class="mui--text-title"><a class="mui--text-light" href="{% url 'comics:index' %}">Comics</a></td>
+            <td class="mui--appbar-height"><a class="mui--text-light" href="{% url 'concept:add_concept' %}">Add Concept</a></td>
+            <td class="mui--appbar-height"><a class="mui--text-light" target="_self" href="{% url 'concept:list_concepts' %}">Concepts</a></td>
+            <td class="mui--appbar-height"><a class="mui--text-light" target="_self" href="{% url 'concept:list_concepts' %}?filter=True">Published Concepts</a></td>
+            <td class="mui--appbar-height"><a class="mui--text-light" target="_self" href="{% url 'concept:list_concepts' %}?filter=False">Unpublished Concepts</a></td>
+            <td align="right">
+                <div class="mui-dropdown">
+                    <button class="mui-btn mui-btn--primary" data-mui-toggle="dropdown">
+                        Account
+                        <span class="mui-caret"></span>
+                    </button>
+                    <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+                        <li><a href="{% url 'comics:not_made' %}">Profile</a></li>
+                        <li><a href="{% url 'auth:logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+</header>
 
 {% block page %}
 body

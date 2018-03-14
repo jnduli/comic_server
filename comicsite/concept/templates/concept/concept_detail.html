@@ -2,54 +2,93 @@
 
 {% block page %}
 
-<header class="row">
-    <h4 class="col s6 left-align">{{ object.title }}</h4>
-    {% if object.published %}
-    <h5 class="col s6 right-align"><a href="{% url 'concept:publish_concept' object.id %}">Unpublish</a></h5>
-    {% else %}
-    <h5 class="col s6 right-align"><a href="{% url 'concept:publish_concept' object.id %}">Publish</a></h5>
-    {% endif %}
+<header class="mui-row">
+    <div class="mui-col-md-6 mui--text-headline">{{ object.title }}</div>
+    <h5 class="mui-col-md-6 mui--text-title mui--text-right">
+        {% if object.published %}
+        <a href="{% url 'concept:publish_concept' object.id %}">Unpublish</a>
+        {% else %}
+        <a href="{% url 'concept:publish_concept' object.id %}">Publish</a>
+        {% endif %}
+    </h5>
 </header>
-<ul class="collection">
-    <li class="collection-item">Description: {{ object.description }}</li>
-    <li class="collection-item">Conversation: {{ object.conversation }}</li>
-    <li class="collection-item">Date Created: {{ object.date_created }}</li>
-    <li class="collection-item">User: {{ object.user.name }}</li>
-    <li class="collection-item">Characters Number: {{ object.characters_no }}</li>
-    {% if concept.published %}
-    <li class="collection-item">Date Published: {{ object.date_published }}</li>
-    {% endif %}
-    <li class="collection-item"><a href="{% url 'concept:edit_concept' object.id %}">Edit concept details</a></li>
-</ul>
+
+<table class="mui-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Contents</th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Description: </td><td>{{ object.description }}</td>
+    </tr>
+    <tr>
+        <td>Conversation: </td><td>{{ object.conversation }}</td>
+    </tr>
+    <tr>
+        <td>Date Created: </td><td>{{ object.date_created }}</td>
+    </tr>
+    <tr>
+        <td>User: </td><td>{{ object.user.name }}</td>
+    </tr>
+    <tr>
+        <td>Characters Number: </td><td>{{ object.characters_no }}</td>
+    </tr>
+    <tr>
+        {% if concept.published %}
+        <td>Date Published: </td><td>{{ object.date_published }}</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td><a href="{% url 'concept:edit_concept' object.id %}">Edit concept details</a></td>
+    </tr>
+</table>
 
 
-<div class="row">
+<div>
+    <div class="mui-row mui--text-title">Sketch</div>
     {% if object.sketch %}
-    <img id='sketch_image' class="responsive-img" src="{{ object.sketch.image.url }}"></img>
-    <a class="btn waves-effect waves-light" id="sketch_edit" href="{% url 'sketch:sketch_edit' object.id %}">Edit Sketch</a>
-    {% else %}
-    <a class="btn waves-effect waves-light" id="sketch_add" href="{% url 'sketch:sketch_create' object.id %}">Add Sketch</a>
+    <div class="mui-row">
+        <img id='sketch_image' class="mui-col-xs-12 mui-col-md-8 mui-col-md-offset-2 responsive-img" src="{{ object.sketch.image.url }}"></img>
+    </div>
     {% endif %}
+
+    <div class="mui-row">
+        {% if object.sketch %}
+        <a class="mui-btn mui-btn--primary" id="sketch_edit" href="{% url 'sketch:sketch_edit' object.id %}">Edit Sketch</a>
+        {% else %}
+        <a class="mui-btn mui-btn--accent" id="sketch_add" href="{% url 'sketch:sketch_create' object.id %}">Add Sketch</a>
+        {% endif %}
+    </div>
+</div>
+
+<div>
+    <div class="mui-row mui--text-title">Gimp</div>
+    <div class="mui-row">
+        {% if object.sketch and object.gimp %}
+        <!-- add file download path -->
+        <a class="mui-btn mui-btn--raised" href="{{ object.gimp.file_gimp.url }}">Gimp File Download</a>
+        <!-- <img id='sketch_image' class="responsive-img" src="{{ object.sketch.image.url }}"></img> -->
+        <a class="mui-btn mui-btn--primary" id="gimp_edit" href="{% url 'gimp:gimp_edit' object.id %}">Edit Gimp File</a>
+        {% elif object.sketch %}
+        <a class="mui-btn mui-btn--accent" id="gimp_add" href="{% url 'gimp:gimp_create' object.id %}">Add Gimp File</a>
+        {% endif %}
+    </div>
 </div>
 
 <div class="row">
-    {% if object.sketch and object.gimp %}
-    <!-- add file download path -->
-    <a href="{{ object.gimp.file_gimp.url }}">Gimp File Download</a>
-    <!-- <img id='sketch_image' class="responsive-img" src="{{ object.sketch.image.url }}"></img> -->
-    <a class="btn waves-effect waves-light" id="gimp_edit" href="{% url 'gimp:gimp_edit' object.id %}">Edit Gimp File</a>
-    {% else %}
-    <a class="btn waves-effect waves-light" id="gimp_add" href="{% url 'gimp:gimp_create' object.id %}">Add Gimp File</a>
-    {% endif %}
-</div>
-
-<div class="row">
+    <div class="mui-row mui--text-title">Comic Strip</div>
     {% if object.sketch and object.gimp and object.strip %}
-    <!-- add file download path -->
-    <img id='strip_image' class="responsive-img" src="{{ object.strip.image.url }}"></img>
-    <a class="btn waves-effect waves-light" id="strip_edit" href="{% url 'strip:strip_edit' object.id %}">Edit Strip</a>
+    <div class="mui-row">
+        <!-- add file download path -->
+        <img id='strip_image' class="mui-col-xs-12 mui-col-md-8 mui-col-md-offset-2 responsive-img" src="{{ object.strip.image.url }}"></img>
+    </div>
+    <div class="mui-row">
+        <a class="mui-btn mui-btn--primary" id="strip_edit" href="{% url 'strip:strip_edit' object.id %}">Edit Strip</a>
+    </div>
     {% elif object.sketch and object.gimp %}
-    <a class="btn waves-effect waves-light" id="strip_add" href="{% url 'strip:strip_create' object.id %}">Add Strip</a>
+    <a class="mui-btn mui-btn--accent" id="strip_add" href="{% url 'strip:strip_create' object.id %}">Add Strip</a>
     {% endif %}
 </div>
 

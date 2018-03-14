@@ -12,11 +12,11 @@
         <form class="mui-form" action="{% url 'auth:login' %}" method="post">
             {% csrf_token %}
             <div class='mui-textfield'>
-                <input type='email' id='email' name='email' required>
+                <input type='email' id='email' name='email' required placeholder='Email'>
                 <label>Email</label>
             </div>
             <div class='mui-textfield'>
-                <input type='password' id='password' name='password' required>
+                <input type='password' id='password' name='password' required placeholder='Password'>
                 <label>Password</label>
             </div>
             <button type="submit" class="mui-btn mui-btn--raised">Submit</button>

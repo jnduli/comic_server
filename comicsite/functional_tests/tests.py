@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.chrome.options import Options
 from django.test import LiveServerTestCase
 import unittest
 import os
@@ -19,7 +20,10 @@ class WriterAddComicTest ( LiveServerTestCase ):
         # firefox_capabilities['firefox_profile'] = fp.encode()
         #self.browser = webdriver.Firefox(firefox_options=opts)
         # self.browser = webdriver.Firefox()
-        self.browser = webdriver.Chrome()
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--window-size=1920x1080")
+        self.browser = webdriver.Chrome(chrome_options=chrome_options)
         self.browser.implicitly_wait(3)
 
     def tearDown(self):

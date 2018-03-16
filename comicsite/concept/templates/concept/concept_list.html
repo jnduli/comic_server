@@ -2,12 +2,12 @@
 
 {% block page %}
 
-<div class="row">
+<div class="mui-row">
     <h3>Concepts</h3>
 </div>
 
- <div class="row">
-    <div class="input-field col s8">
+ <div class="mui-row">
+    <div class="mui-select mui-col-md-6">
         <select onchange="window.location.href=this.value;">
             <option value="" disabled selected>Choose your option</option>
         <option value="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=date_created">Dates descending</option>
@@ -17,21 +17,11 @@
         </select>
         <label>Order By</label>
     </div>
-    <!-- <select size="1" name="links" onchange="window.location.href=this.value;"> -->
-        <!-- <option value="http://www.google.com">Google</option> -->
-        <!-- <option value="http://www.yahoo.com">Yahoo</option> -->
-    <!-- </select> -->
-    <!-- <ul> -->
-        <!-- <li class="tab"><a target="_self" href="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=date_created">Dates descending</a></li> -->
-        <!-- <li class="tab"><a target="_self" href="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=-date_created">Dates ascending</a></li> -->
-        <!-- <li class="tab"><a target="_self" href="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=title">Title descending</a></li> -->
-        <!-- <li class="tab"><a target="_self" href="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=-title">Title ascending</a></li> -->
-    <!-- </ul> -->
 </div>
 
-<div class="row s8">
+<div class="mui-row">
 
-    <table class="responsive-table">
+    <table id="concept-table" class="mui-table mui-col-md-8">
         <thead>
             <tr>
                 <th>Title</th>
@@ -66,11 +56,5 @@
         </tbody>
     </table>
 </div>
-
-<script>
-$(document).ready(function() {
-    $('select').material_select();
-  });
-</script>
 
 {% endblock %}

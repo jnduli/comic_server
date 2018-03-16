@@ -15,6 +15,7 @@ class SketchCreate(CreateView, SuccessMessageMixin):
     model = Sketch
     fields = ['image']
     success_message = "Sketch successfully created"
+    template_name = "comicsite/upload_form.html"
 
     def get_success_url(self):
         return reverse('concept:detail_concept', args=[self.kwargs['pk']])
@@ -24,12 +25,18 @@ class SketchCreate(CreateView, SuccessMessageMixin):
         form.instance.concept = Concept.objects.get(pk=self.kwargs['pk'])
         return super(SketchCreate, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(SketchCreate, self).get_context_data(**kwargs)
+        context['title'] = 'Add Sketch'
+        return context
+
 
 @method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
 class SketchUpdate(UpdateView, SuccessMessageMixin):
     model = Sketch
     fields = ['image']
     success_message = "Sketch successfully updated"
+    template_name = "comicsite/upload_form.html"
 
     def get_object(self, queryset=None):
         sketch = Concept.objects.get(id=self.kwargs['pk']).sketch
@@ -38,3 +45,7 @@ class SketchUpdate(UpdateView, SuccessMessageMixin):
     def get_success_url(self):
         return reverse('concept:detail_concept', args=[self.kwargs['pk']])
 
+    def get_context_data(self, **kwargs):
+        context = super(SketchUpdate, self).get_context_data(**kwargs)
+        context['title'] = 'Update Sketch'
+        return context

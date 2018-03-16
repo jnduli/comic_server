@@ -1,0 +1,23 @@
+{% extends "comicsite/base_auth.html" %}
+
+{% block page %}
+
+<div id="title" class="mui-row mui--text-title">
+    {{ title }}
+</div>
+
+<div class="mui-row">
+    <form class="mui-form mui-col-md-8" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mui-textfield">
+            {{ field.errors }}
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button class="mui-btn mui-btn--primary" type="submit" id="sketch_submit" value="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

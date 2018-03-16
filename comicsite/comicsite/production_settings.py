@@ -144,3 +144,5 @@ MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 
 ANALYTICS_TRACKING_ID = 'UA-89300561-2'
+# TODO: create this folder using ansible
+DBBACKUP_STORAGE_OPTIONS = {'location': '/var/backups/comic_server'}

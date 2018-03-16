@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
+    'dbbackup', # django-dbbackup
 
     'comics',
     'authenticate',
@@ -138,3 +139,7 @@ MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 
 ANALYTICS_TRACKING_ID = ''
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(ENV_PATH,'backups/')}
+

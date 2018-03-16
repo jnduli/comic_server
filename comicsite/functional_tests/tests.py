@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.chrome.options import Options
 from django.test import LiveServerTestCase
 import unittest
 import os
@@ -19,7 +20,10 @@ class WriterAddComicTest ( LiveServerTestCase ):
         # firefox_capabilities['firefox_profile'] = fp.encode()
         #self.browser = webdriver.Firefox(firefox_options=opts)
         # self.browser = webdriver.Firefox()
-        self.browser = webdriver.Chrome()
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--window-size=1920x1080")
+        self.browser = webdriver.Chrome(chrome_options=chrome_options)
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -68,22 +72,22 @@ class WriterAddComicTest ( LiveServerTestCase ):
         list_concept = self.browser.find_element_by_id('list_concept_button')
         list_concept.click()
         #He then looks for the concept he recently added
-        concept = self.browser.find_element_by_css_selector('td:nth-of-type(1)')
+        concept = self.browser.find_element_by_css_selector('#concept-table td:nth-of-type(1)')
         #He finds "today i dont know what to say"
         self.assertEquals("today i dont know what to say", concept.text)
         # The concept should show whether it has a sketch or not
-        concept_sketch = self.browser.find_element_by_css_selector('td:nth-of-type(2)')
+        concept_sketch = self.browser.find_element_by_css_selector('#concept-table td:nth-of-type(2)')
         self.assertEquals("None", concept_sketch.text)
         # The concept should show whether the comic is published or not
-        concept_comic_pub = self.browser.find_element_by_css_selector("td:nth-of-type(3)")
+        concept_comic_pub = self.browser.find_element_by_css_selector("#concept-table td:nth-of-type(3)")
         self.assertEquals("unpublished",concept_comic_pub.text)
         #He clicks on it
-        concept_details = self.browser.find_element_by_css_selector('td:nth-of-type(4) a')
+        concept_details = self.browser.find_element_by_css_selector('#concept-table td:nth-of-type(4) a')
         self.assertEquals('details', concept_details.text)
         concept_details.click()
         #He is directed to a page where he can either edit the concept or add a sketch
         print(self.browser.current_url)
-        concept_header = self.browser.find_element_by_css_selector('header')
+        concept_header = self.browser.find_element_by_css_selector('header#concept-header')
         self.assertIn('today i dont know what to say', concept_header.text)
         # He sees a button written 'Add sketch'
         sketch_add_button = self.browser.find_element_by_id('sketch_add')

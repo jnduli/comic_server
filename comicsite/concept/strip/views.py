@@ -16,6 +16,7 @@ class StripCreate(CreateView, SuccessMessageMixin):
     model = Strip
     fields = ['image']
     success_message = "Strip file successfully uploaded"
+    template_name = "comicsite/upload_form.html"
 
     def get_success_url(self):
         return reverse('concept:detail_concept', args=[self.kwargs['pk']])
@@ -25,11 +26,17 @@ class StripCreate(CreateView, SuccessMessageMixin):
         form.instance.concept = Concept.objects.get(pk=self.kwargs['pk'])
         return super(StripCreate, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(StripCreate, self).get_context_data(**kwargs)
+        context['title'] = 'Add Strip'
+        return context
+
 @method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
 class StripUpdate(UpdateView, SuccessMessageMixin):
     model = Strip
     fields = ['image']
     success_message = "Strip file successfully updated"
+    template_name = "comicsite/upload_form.html"
 
     def get_object(self, queryset=None):
         strip = Concept.objects.get(id=self.kwargs['pk']).strip
@@ -38,5 +45,10 @@ class StripUpdate(UpdateView, SuccessMessageMixin):
     def get_success_url(self):
         return reverse('concept:detail_concept', args=[self.kwargs['pk']])
 
+
+    def get_context_data(self, **kwargs):
+        context = super(StripUpdate, self).get_context_data(**kwargs)
+        context['title'] = 'Update Strip'
+        return context
 
 # Create your views here.

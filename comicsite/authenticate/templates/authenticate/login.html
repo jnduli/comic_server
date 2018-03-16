@@ -1,27 +1,25 @@
 {% extends "comicsite/main.html" %}
 
 {% block content %}
-<div class="card">
-    <div class="card-title">Login</div>
-    <div class="card-content">
+<div class="panel">
+    <div class='mui--text-title'>Login</div>
+    <div class="panel">
         {% if error_message %} 
-        <div class="col s12 red lighten-3">
+        <div class="mui-panel mui--bg-danger">
             {{ error_message }} 
         </div>
         {% endif %}
-        <form class="col s12" action="{% url 'auth:login' %}" method="post">
+        <form class="mui-form" action="{% url 'auth:login' %}" method="post">
             {% csrf_token %}
-            <div class="input-field col s12">
-                <input placeholder="Email" id="email" type="email" class="validate" name="email">
-                <label for="email">Email</label>
+            <div class='mui-textfield'>
+                <input type='email' id='email' name='email' required placeholder='Email'>
+                <label>Email</label>
             </div>
-            <div class="input-field col s12">
-                <input placeholder="Password" id="password" type="password" class="validate" name="password">
-                <label for="password">Password</label>
+            <div class='mui-textfield'>
+                <input type='password' id='password' name='password' required placeholder='Password'>
+                <label>Password</label>
             </div>
-            <div class="card-action">
-                <button class="btn waves-effect waves-light" type="submit" id="login_button" value="submit">Submit
-                </button>
+            <button type="submit" class="mui-btn mui-btn--raised">Submit</button>
             </div>
         </form>
     </div>

@@ -30,6 +30,7 @@
       with_items:
         - "{{ static_root }}"
         - "{{ media_root }}"
+        - "{{ backup_root }}"
 
     - name: set up static files
       django_manage:

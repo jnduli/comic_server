@@ -29,3 +29,4 @@ server_name: comics.jnduli.co.ke www.comics.jnduli.co.ke
 static_files_root: /var/www/static_files
 media_root: "{{ static_files_root }}/media"
 static_root: "{{ static_files_root }}/static"
+backup_root: "/var/backups/{{ project_name }}"

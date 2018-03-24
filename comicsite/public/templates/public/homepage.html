@@ -7,15 +7,24 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89300561-2"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '{{ analytics_tracking_id }}');
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '{{ analytics_tracking_id }}');
     </script>
     {% endif %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Tags of sharing online -->
+    <!-- Info got from https://css-tricks.com/essential-meta-tags-social-media/ -->
+    {% if concept %}
+    <meta property="og:title" content="{{ concept.title }}">
+    <!-- <meta property="og:description" content="Offering tour packages for individuals or groups."> -->
+    <meta property="og:image" content="{{ concept.strip.image.url }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:card" content="summary_large_image">
+    {% endif %}
     <!-- load MUI -->
     <link href="//cdn.muicss.com/mui-0.9.26/css/mui.min.css" rel="stylesheet" type="text/css" />
     <script src="//cdn.muicss.com/mui-0.9.26/js/mui.min.js"></script>
@@ -59,6 +68,9 @@
         {% endif %}
 
         {% if concept %}
+        <div class="mui-row mui--text-title mui--text-center">
+          {{ concept.title }}
+        </div>
         <div class="mui-row">
           <img class="mui-col-xs-12 mui-col-md-8 mui-col-md-offset-2 responsive-img" src="{{ concept.strip.image.url }}"></img>
         </div>

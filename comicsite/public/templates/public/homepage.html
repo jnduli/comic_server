@@ -20,7 +20,6 @@ gtag('config', '{{ analytics_tracking_id }}');
     <!-- Info got from https://css-tricks.com/essential-meta-tags-social-media/ -->
     {% if concept %}
     <meta property="og:title" content="{{ concept.title }}">
-    <!-- <meta property="og:description" content="Offering tour packages for individuals or groups."> -->
     <meta property="og:image" content="{{ concept.strip.image.url }}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta name="twitter:card" content="summary_large_image">

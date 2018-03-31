@@ -6,7 +6,7 @@ test:
     - apt-get update -qy
     - apt-get install -y python-dev python-pip
       # install this for functional tests
-    - apt-get install chromium chromium-chromedriver
+    - apt-get install chromium
     - pip install -r requirements.txt
     - cd comicsite
     - cp .env.example .env

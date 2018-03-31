@@ -6,6 +6,12 @@
     dest={{ install_root }}/{{ project_name }}
     accept_hostkey=yes
 
+# copy env file with secretes to project root 
+- name: copy env file to project root
+  template:
+    src=env_template.j2
+    dest={{ django_dir }}/.env
+
 # set up virtual environment
 # install project requirements
 - name: set up virtual env and install requirements

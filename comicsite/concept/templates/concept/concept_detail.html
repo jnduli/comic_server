@@ -24,7 +24,7 @@
         <td>Description: </td><td>{{ object.description }}</td>
     </tr>
     <tr>
-        <td>Conversation: </td><td>{{ object.conversation }}</td>
+        <td>Conversation: </td><td>{{ object.conversation_html|safe }}</td>
     </tr>
     <tr>
         <td>Date Created: </td><td>{{ object.date_created }}</td>

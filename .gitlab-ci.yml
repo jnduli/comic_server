@@ -1,0 +1,30 @@
+
+test:
+  image: joyzoursky/python-chromedriver:3.6
+  stage: test
+  script:
+    - apt-get update -qy
+    - apt-get install -y python-dev python-pip
+    - pip install -r requirements.txt
+    - cd comicsite
+    - cp .env.example .env
+    - python manage.py makemigrations
+    - python manage.py migrate
+    - python manage.py test
+
+deploy:
+  image: alpine
+  stage: deploy
+  script:
+    - apk add --no-cache openssh ansible
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan jnduli.co.ke >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\tForwardAgent yes\n\n" > ~/.ssh/config'
+    - cd ansible
+    - ansible-playbook -i 'jnduli.co.ke,' -u 'rookie' --extra-vars="ansible_become_pass=$ROOKIE_PASSWORD" update_project.yml
+  only: 
+    - master

@@ -1,0 +1,100 @@
+---
+# set up github repo for project
+- name: pull branch master of project
+  git:
+    repo={{ project_repo }}
+    dest={{ install_root }}/{{ project_name }}
+    accept_hostkey=yes
+
+# copy env file with secretes to project root 
+- name: copy env file to project root
+  template:
+    src=env_template.j2
+    dest={{ django_dir }}/.env
+
+# set up virtual environment
+# install project requirements
+- name: set up virtual env and install requirements
+  pip:
+    requirements={{ install_root }}/{{ project_name }}/requirements.txt
+    virtualenv={{ venv_root }}/{{ project_name }}
+    virtualenv_command="/usr/bin/python3.5 -m venv"
+
+# set up folders for static files
+- name: set up static folders
+  remote_user: "{{ user }}"
+  become: true
+  file:
+    path={{ item }}
+    state=directory
+    owner={{ user }}
+  with_items:
+    - "{{ static_root }}"
+    - "{{ media_root }}"
+    - "{{ backup_root }}"
+
+- name: set up static files
+  django_manage:
+    command=collectstatic
+    virtualenv={{ venv_root }}/{{ project_name }}
+    app_path={{ django_dir }}
+    settings={{ django_settings_module }}
+
+- name: set up migrations and migrate
+  django_manage:
+    command=migrate
+    virtualenv={{ venv_root }}/{{ project_name }}
+    app_path={{ django_dir }}
+    settings={{ django_settings_module }}
+  notify:
+    - restart supervisor
+
+#
+# - name: create superuser for administration
+  # django_manage:
+    # command: "createsuperuser --noinput --username=admin --email=yohanaizraeli@gmail.com"
+    # app_path: "{{ django_dir }}"
+
+# install gunicorn in virtual environment
+- name: install gunicorn and psycopg2 in virtual environment
+  pip:
+    virtualenv={{ venv_root }}/{{ project_name }}
+    name={{ item }}
+    state=present
+  with_items:
+    - gunicorn
+    - psycopg2
+
+# create folder that will contain gunicorn bash script launcher
+- name: create gunicorn scripts directory
+  file:
+    path={{ gunicorn_launcher_root }}
+    state=directory
+    owner={{ user }}
+
+
+# copy gunicorn bash launcher to server
+- name: copy gunicorn server bash launcher to server
+  template:
+    src=gunicorn_launcher.j2
+    dest={{ gunicorn_launcher_root }}/{{ project_name }}.sh
+    mode=a+x
+  notify:
+    - restart supervisor
+
+# set up project supervisor log file folder
+- name: create logs folder for supervisor
+  file:
+    path={{ supervisor_log_root }}
+    state=directory
+    owner={{ user }}
+
+# copy supervisor config for project to server
+- name: copy supervisor config for project
+  remote_user: "{{ user }}"
+  become: true
+  template:
+    src=supervisor.j2
+    dest=/etc/supervisor/conf.d/{{ project_name }}.conf
+  notify:
+    - restart supervisor

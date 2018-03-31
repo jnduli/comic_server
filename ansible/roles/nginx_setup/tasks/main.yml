@@ -1,0 +1,11 @@
+---
+# copy project nginx set up to server
+- name: set up nginx config on server
+  remote_user: "{{ user }}"
+  become: true
+  template:
+    src=nginx.j2
+    dest=/etc/nginx/sites-enabled/{{ project_name }}
+  notify:
+    - restart nginx
+

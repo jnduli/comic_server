@@ -1,0 +1,4 @@
+- name: restart nginx
+  remote_user: "{{ user }}"
+  become: true
+  service: name=nginx state=restarted

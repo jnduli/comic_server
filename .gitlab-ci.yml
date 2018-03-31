@@ -12,4 +12,4 @@ test:
     - cp .env.example .env
     - python manage.py makemigrations
     - python manage.py migrate
-    - python manage.py test
+    - xvfb-run --server-args="-screen 0 1024x768x24" python manage.py test

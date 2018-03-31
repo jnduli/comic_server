@@ -1,0 +1,13 @@
+---
+user: rookie
+
+server_name: comics.jnduli.co.ke www.comics.jnduli.co.ke
+
+sock_root: /home/rookie/socks
+
+sock_file: "{{ sock_root }}/{{ project_name }}.sock"
+
+static_files_root: /var/www/static_files
+media_root: "{{ static_files_root }}/media"
+static_root: "{{ static_files_root }}/static"
+

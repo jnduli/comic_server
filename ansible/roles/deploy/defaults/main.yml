@@ -1,0 +1,28 @@
+---
+user: rookie
+
+project_repo: git@gitlab.com:jnduli/comic_server.git
+
+project_name: comic_server
+
+install_root: /home/rookie/projects
+
+venv_root: /home/rookie/venvs
+
+static_files_root: /var/www/static_files
+media_root: "{{ static_files_root }}/media"
+static_root: "{{ static_files_root }}/static"
+backup_root: "/var/backups/{{ project_name }}"
+
+django_dir: "{{ install_root }}/{{ project_name }}/comicsite"
+
+django_settings_module: comicsite.production_settings
+
+gunicorn_launcher_root: /home/rookie/gunicorn_launchers
+
+supervisor_log_root: /home/rookie/supervisor_logs
+
+wsgi_module: comicsite.wsgi
+sock_root: /home/rookie/socks
+
+sock_file: "{{ sock_root }}/{{ project_name }}.sock"

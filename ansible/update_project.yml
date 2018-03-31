@@ -1,44 +1,6 @@
 ---
-- hosts: my_server
-  vars_files:
-    - vars.yml
-  tasks:
-  # set up github repo for project
-    - name: pull branch master of project
-      git:
-        repo={{ project_repo }}
-        dest={{ install_root }}/{{ project_name }}
-        accept_hostkey=yes
-      notify:
-        - restart supervisor
-
-  # set up virtual environment
-  # install project requirements
-    # - name: set up virtual env and install requirements
-      # pip:
-        # requirements={{ install_root }}/{{ project_name }}/requirements.txt
-        # virtualenv={{ venv_root }}/{{ project_name }}
-        # virtualenv_command="/usr/bib/python3.5 -m venv"
-
-    - name: set up migrations and migrate
-      django_manage:
-        virtualenv: "{{ venv_root }}/{{ project_name }}"
-        command: migrate
-        app_path: "{{ django_dir }}"
-        settings: "{{ django_settings_module }}"
-
-
-
-        # super user will be create on the server by the user
-    # - name: create superuser for administration
-      # django_manage:
-        # virtualenv: "{{ venv_root }}/{{ project_name }}"
-        # command: "createsuperuser --noinput --username=admin --email=yohanaizraeli@gmail.com"
-        # app_path: "{{ django_dir }}
-        #
-# handlers
-  handlers:
-    - name: restart supervisor
-      remote_user: "{{ user }}"
-      become: true
-      service: name=supervisor state=restarted
+# To be used only be cicd
+- hosts: all
+  roles:
+    - common
+    - deploy

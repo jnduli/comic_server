@@ -35,6 +35,7 @@ class Concept ( models.Model ):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        self.conversation_html = markdown(self.conversation)
+        if self.conversation is not None:
+            self.conversation_html = markdown(self.conversation)
         super(Concept, self).save(*args, **kwargs)
 

@@ -1,4 +1,4 @@
-image: joyzoursky/python-chromedriver:3.6-xvfb-selenium
+image: joyzoursky/python-chromedriver:3.6
 
 test:
   stage: test
@@ -6,10 +6,10 @@ test:
     - apt-get update -qy
     - apt-get install -y python-dev python-pip
       # install this for functional tests
-    - apt-get install chromium
+    # - apt-get install chromium
     - pip install -r requirements.txt
     - cd comicsite
     - cp .env.example .env
     - python manage.py makemigrations
     - python manage.py migrate
-    - xvfb-run --server-args="-screen 0 1024x768x24" python manage.py test
+    - python manage.py test

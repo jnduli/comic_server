@@ -21,8 +21,10 @@ class WriterAddComicTest ( LiveServerTestCase ):
         #self.browser = webdriver.Firefox(firefox_options=opts)
         # self.browser = webdriver.Firefox()
         chrome_options = Options()
+        chrome_options.add_argument('--no-sandbox')        
         chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--window-size=1920x1080")
+        chrome_options.add_argument('--disable-gpu')
+        #  chrome_options.add_argument("--window-size=1920x1080")
         self.browser = webdriver.Chrome(chrome_options=chrome_options)
         self.browser.implicitly_wait(3)
 

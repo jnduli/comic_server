@@ -1,4 +1,4 @@
-image: python:3.6
+image: justinribeiro/chrome-headless
 
 test:
   stage: test
@@ -6,7 +6,7 @@ test:
     - apt-get update -qy
     - apt-get install -y python-dev python-pip
       # install this for functional tests
-    - apt-get install chromium
+    # - apt-get install chromium
     - pip install -r requirements.txt
     - cd comicsite
     - cp .env.example .env

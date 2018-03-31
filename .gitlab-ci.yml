@@ -1,4 +1,4 @@
-image: justinribeiro/chrome-headless
+image: yukinying/chrome-headless-browser
 
 test:
   stage: test

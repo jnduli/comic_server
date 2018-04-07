@@ -26,6 +26,8 @@
             <tr>
                 <th>Title</th>
                 <th>Has Sketch</th>
+                <th>Has gimp</th>
+                <th>Has strip</th>
                 <th>comic published</th>
                 <th>Details</th>
             </tr>
@@ -38,6 +40,18 @@
                 <td>Yes</td>
                 {% else %}
                 <td>None</td>
+                {% endif %}
+
+                {% if concept.gimp %}
+                <td>Yes</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
+
+                {% if concept.strip %}
+                <td>Yes</td>
+                {% else %}
+                <td>No</td>
                 {% endif %}
 
                 {% if concept.published %}

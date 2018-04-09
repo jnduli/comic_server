@@ -14,6 +14,10 @@ class ConceptForm(forms.ModelForm):
             widget=forms.Textarea(attrs={'class': 'materialize-textarea'}),
             max_length=4000, required=False
             )
+    public_note = forms.CharField(
+            widget=forms.Textarea(attrs={'class': 'materialize-textarea'}),
+            max_length=4000, required=False
+            )
     class Meta:
         model = Concept
-        fields = ['title', 'description', 'characters_no', 'conversation']
+        fields = ['title', 'description', 'characters_no', 'conversation', 'public_note']

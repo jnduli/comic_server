@@ -30,6 +30,8 @@ class Concept ( models.Model ):
     date_created = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=False)
     date_published = models.DateTimeField(blank=True, null=True)
+    public_note = models.TextField(blank=True, null=True)
+    public_note_html = models.TextField(editable=False, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     objects = ConceptManager()
 
@@ -37,5 +39,6 @@ class Concept ( models.Model ):
         self.slug = slugify(self.title)
         if self.conversation is not None:
             self.conversation_html = markdown(self.conversation, extensions=['markdown.extensions.nl2br'])
+            self.public_note_html = markdown(self.public_note, extensions=['markdown.extensions.nl2br'])
         super(Concept, self).save(*args, **kwargs)
 

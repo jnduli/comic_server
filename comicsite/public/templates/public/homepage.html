@@ -73,6 +73,13 @@ gtag('config', '{{ analytics_tracking_id }}');
         <div class="mui-row">
           <img class="mui-col-xs-12 mui-col-md-8 mui-col-md-offset-2 responsive-img" src="{{ concept.strip.image.url }}"></img>
         </div>
+
+        {% if concept.public_note_html %}
+        <div class="mui-row">
+          {{ concept.public_note_html|safe }}
+        </div>
+        {% endif %}
+
         <div class="mui-row">
           <h3>PermaLink: {{ request.build_absolute_uri }}</h3>
         </div>

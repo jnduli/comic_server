@@ -80,11 +80,14 @@ class WriterAddComicTest ( LiveServerTestCase ):
         # The concept should show whether it has a sketch or not
         concept_sketch = self.browser.find_element_by_css_selector('#concept-table td:nth-of-type(2)')
         self.assertEquals("None", concept_sketch.text)
+        # The concept should show whether it has a sketch or not
+        concept_gimp = self.browser.find_element_by_css_selector('#concept-table td:nth-of-type(3)')
+        self.assertEquals("No", concept_gimp.text)
         # The concept should show whether the comic is published or not
-        concept_comic_pub = self.browser.find_element_by_css_selector("#concept-table td:nth-of-type(3)")
+        concept_comic_pub = self.browser.find_element_by_css_selector("#concept-table td:nth-of-type(5)")
         self.assertEquals("unpublished",concept_comic_pub.text)
         #He clicks on it
-        concept_details = self.browser.find_element_by_css_selector('#concept-table td:nth-of-type(4) a')
+        concept_details = self.browser.find_element_by_css_selector('#concept-table td:nth-of-type(6) a')
         self.assertEquals('details', concept_details.text)
         concept_details.click()
         #He is directed to a page where he can either edit the concept or add a sketch

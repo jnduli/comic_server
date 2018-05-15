@@ -7,4 +7,69 @@
 
 <a href="{% url 'concept:list_concepts' %}" class="btn waves-effect waves-light" id="list_concept_button">List Concepts
 </a>
+
+<div class="mui-container-fluid">
+    <div class="mui-row mui--text-display1">
+        Last information
+    </div>
+    <div class="mui-row">
+        {% if last_published %}
+        <div class="mui-panel mui-col-md-4">
+            <div class="mui--text-headline">
+                Last Comic Published
+            </div>
+            <div style="background-color:#444;" class="mui--text-title mui--text-light-secondary">
+                <p>{{ last_published.title }}</p>
+                <p>Date: {{ last_published.date_published }}</p>
+            </div>
+            <a class="mui-btn mui-btn--primary" href={% url 'concept:detail_concept' last_published.id %}>Open</a>
+        </div>
+        {% endif %}
+        {% if last_sketch %}
+        <div class="mui-panel mui-col-md-4">
+            <div class="mui--text-headline">
+                Last Sketch Added 
+            </div>
+            <div style="background-color:#444;" class="mui--text-title mui--text-light-secondary">
+                <p>{{ last_sketch.title }}</p>
+                <p>Date: {{ last_sketch.date }}</p>
+            </div>
+            <a class="mui-btn mui-btn--primary" href={% url 'concept:detail_concept' last_sketch.id %}>Open</a>
+        </div>
+        {% endif %}
+        {%if last_concept %}
+        <div class="mui-panel mui-col-md-4">
+            <div class="mui--text-headline">
+                Last Concept Added 
+            </div>
+            <div style="background-color:#444;" class="mui--text-title mui--text-light-secondary">
+                <p>{{ last_concept.title }}</p>
+                <p>Date: {{ last_concept.date_created }}</p>
+            </div>
+            <a class="mui-btn mui-btn--primary" href={% url 'concept:detail_concept' last_concept.id %}>Open</a>
+        </div>
+        {% endif %}
+        <div class="mui-row mui--text-display1">
+            Basic Analytics
+        </div>
+        <div class="mui-row">
+            <div class="mui-panel mui-col-md-4">
+                <div class="mui--text-headline">
+                    No of comics published 
+                </div>
+                <div style="background-color:#444;" class="mui--text-title mui--text-light-secondary">
+                    {{ total_comics_published }}
+                </div>
+            </div>
+            <div class="mui-panel mui-col-md-4">
+                <div class="mui--text-headline">
+                    No of concepts added 
+                </div>
+                <div style="background-color:#444;" class="mui--text-title mui--text-light-secondary">
+                    {{ total_concepts }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

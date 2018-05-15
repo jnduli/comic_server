@@ -6,16 +6,47 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
-from .models import Sketch, Comic
-from concept.models import Concept
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Count
+from django.db.models import Model
+
+
+from .models import Sketch, Comic
+from concept.models import Concept
 
 
 # Create your views here.
 @login_required(login_url=reverse_lazy('auth:login'))
 def system_page(request):
-    return render(request, 'comics/homepage.html')
+    # TODO: Show average comics published per month and best month
+    # TODO: show average concepts added per month and best month
+    try:
+        last_concept = Concept.objects.latest('date_created')
+    except Concept.DoesNotExist:
+        last_concept = None
+
+    try:
+        last_published = Concept.objects.filter(published=True).latest('date_published')
+    except Concept.DoesNotExist:
+        last_published = None
+
+    try:
+        last_sketch = Sketch.objects.latest('date_created').concept
+    except Sketch.DoesNotExist:
+        last_sketch = None
+
+    total_comics_published = Concept.objects.filter(published=True).count()
+    total_concepts = Concept.objects.count()
+
+    context = {
+            'last_concept': last_concept,
+            'last_published': last_published,
+            'last_sketch': last_sketch,
+            'total_comics_published': total_comics_published,
+            'total_concepts': total_concepts,
+            }
+    return render(request, 'comics/homepage.html', context)
 
 def page_not_made(request):
     return render(request, 'comics/page_not_made.html')

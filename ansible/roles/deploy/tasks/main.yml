@@ -5,6 +5,8 @@
     repo={{ project_repo }}
     dest={{ install_root }}/{{ project_name }}
     accept_hostkey=yes
+  notify:
+    - restart supervisor
 
 # copy env file with secretes to project root 
 - name: copy env file to project root

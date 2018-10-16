@@ -25,4 +25,4 @@ STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 
 ANALYTICS_TRACKING_ID = ''
 
-DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(ENV_PATH,'backups/')}
+DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR,'backups/')}

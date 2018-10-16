@@ -5,3 +5,4 @@ media/*
 comicsite/media/
 comicsite/static/
 .env
+backups/*

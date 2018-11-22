@@ -20,7 +20,7 @@
   pip:
     requirements={{ install_root }}/{{ project_name }}/requirements.txt
     virtualenv={{ venv_root }}/{{ project_name }}
-    virtualenv_command="/usr/bin/python3.5 -m venv"
+    virtualenv_command="/usr/bin/python3 -m venv"
 
 # set up folders for static files
 - name: set up static folders

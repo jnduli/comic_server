@@ -16,7 +16,7 @@ deploy:
   image: alpine
   stage: deploy
   script:
-    - apk add --no-cache openssh ansible
+    - apk add --no-cache openssh ansible git
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - mkdir -p ~/.ssh

@@ -39,10 +39,11 @@ class ConceptList(ListView):
     def get_queryset(self):
         order = self.request.GET.get('orderby', '-date_created')
         filter_val = self.request.GET.get('filter', '')
+        user = self.request.user
         if filter_val == '':
-            return Concept.objects.all().order_by(order)
+            return Concept.objects.filter(user=user).order_by(order)
         else:
-            return Concept.objects.filter(published = filter_val).order_by(order)
+            return Concept.objects.filter(user=user, published = filter_val).order_by(order)
 
     def get_context_data(self, **kwargs):
         context = super(ConceptList, self).get_context_data(**kwargs)

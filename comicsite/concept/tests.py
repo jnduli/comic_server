@@ -42,6 +42,12 @@ class ConceptTestCase(TransactionTestCase):
         response = self.client.get('/concept/list_concepts/', follow=True)
         self.assertEqual(len(response.redirect_chain), 0)
         self.assertEqual(response.status_code, 200)
+    def setUp(self):
+        # create user
+        john = User(username='rookie', email='john@email.com', is_active=True)
+        john.set_password('password101')
+        john.save()
+        self.user = john
 
     def concept_create(self):
         con = Concept(title='test edit concept', description='this is a test concept',
@@ -78,6 +84,12 @@ class ConceptTestCase(TransactionTestCase):
         self.assertTrue(Concept.objects.filter(title=new_title).exists())
 
     def create_concepts(self):
+        random = User(username='random', email='random@email.com', is_active=True)
+        random.save()
+        con1 = Concept(title='test another users concept', description='this is a test concept from random user',
+                characters_no = 2)
+        con1.user = random; 
+        con1.save()
         con = Concept(title='test edit concept', description='this is a test concept',
                 characters_no = 2, published=True)
         con.user = self.user
@@ -90,6 +102,14 @@ class ConceptTestCase(TransactionTestCase):
                 characters_no = 2, published=True)
         con.user = self.user
         con.save()
+
+    def test_show_my_concepts_only(self):
+        self.create_concepts()
+        self.client.login(username='rookie', password='password101')
+        response = self.client.get('/concept/list_concepts/', follow=True)
+        self.assertEqual(response.status_code, 200)
+        No_concepts = len(response.context['object_list'])
+        self.assertEqual(No_concepts, 3);
 
     def test_concept_list(self):
         self.create_concepts()

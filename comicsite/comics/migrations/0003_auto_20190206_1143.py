@@ -13,8 +13,11 @@ class Migration(migrations.Migration):
         if User.objects.count() == 1:
             user = User.objects.get()
         else:
-            # get the first superuser
-            user = User.objects.filter(is_superuser=True)[0]
+            try:
+                # get the first superuser
+                user = User.objects.filter(is_superuser=True)[0]
+            except IndexError:
+                return
 
         Comic = apps.get_model('comics', 'Comic');
         for comic in Comic.objects.all():

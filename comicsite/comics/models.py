@@ -11,9 +11,8 @@ from concept.models import Concept
 from concept.sketch.models import Sketch
 # Create your models here.
 
-
+# The user of the comic is the same as the user of the sketch
 class Comic ( models.Model ):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     sketch = models.OneToOneField(Sketch, on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
     deleted = models.BooleanField(default=True)

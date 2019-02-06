@@ -24,7 +24,7 @@ def next_comic(request, slug):
     current_concept = Concept.objects.get(slug=slug)
     next_comics = Concept.objects.filter(published=True,date_published__gt=current_concept.date_published).order_by('date_published')
     if (next_comics.count() < 1 ):
-        messages.info(request,"This is the lates comic. You cannot go later") 
+        messages.info(request,"This is the latest comic. You cannot go later") 
         return redirect(reverse('public:slug', args=[current_concept.slug]))
     else:
         return redirect(reverse('public:slug', args=[next_comics[0].slug]))

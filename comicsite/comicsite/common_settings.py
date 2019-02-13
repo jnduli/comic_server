@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'concept.gimp',
     'concept.strip',
     'public',
+    'userprofile'
 ]
 
 MIDDLEWARE = [

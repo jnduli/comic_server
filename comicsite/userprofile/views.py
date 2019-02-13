@@ -8,4 +8,5 @@ from django.contrib.auth.models import User
 
 @method_decorator(login_required(login_url=reverse_lazy('auth:login')), name='dispatch')
 class UserDetail(DetailView):
+    template_name = "userprofile/user_details.html"
     model = User

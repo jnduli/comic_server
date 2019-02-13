@@ -1,0 +1,9 @@
+{% extends "comicsite/base_auth.html" %}
+
+{% block page %}
+
+{{ object.username }}
+{{ object.get_full_name }}
+{{ object.email }}
+
+{% endblock %}

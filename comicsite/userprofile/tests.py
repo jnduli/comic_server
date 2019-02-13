@@ -13,5 +13,13 @@ class UserProfileTestCase(TransactionTestCase):
         self.user = john
 
     def test_user_details_page_load_fail(self):
-        response = self.client.get('/userprofile/details/', follow=True)
-        self.assertRedirects(response, reverse('auth:login')+'?next=' + reverse('userprofile:details'))
+        response = self.client.get('/userprofile/details/{}'.format(self.user.id), follow=True)
+        self.assertRedirects(response, reverse('auth:login')+'?next=' + reverse('userprofile:details', kwargs={'pk': self.user.id}),fetch_redirect_response=False)
+
+    def test_user_details(self):
+        self.client.login(username='rookie', password='password101')
+        response = self.client.get('/userprofile/details/{}'.format(self.user.id), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'john OroJackson')
+        self.assertContains(response, 'john@email.com')
+        self.assertContains(response, 'rookie')

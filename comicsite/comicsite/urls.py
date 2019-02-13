@@ -27,5 +27,6 @@ urlpatterns = [
         url(r'^sketch/', include('concept.sketch.urls', namespace='sketch') ),
         url(r'^gimp/', include('concept.gimp.urls', namespace='gimp') ),
         url(r'^strip/', include('concept.strip.urls', namespace='strip') ),
+        url(r'^userprofile/', include('userprofile.urls', namespace='userprofile') ),
         ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

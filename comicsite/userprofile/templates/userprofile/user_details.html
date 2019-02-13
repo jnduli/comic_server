@@ -2,8 +2,25 @@
 
 {% block page %}
 
-{{ object.username }}
-{{ object.get_full_name }}
-{{ object.email }}
+<table class="mui-table mui-table--bordered">
+    <thead>
+        <tr>
+            User Details
+        </tr>
+    </thead>
+    <tr>  
+        <td>Username: </td>
+        <td>{{ object.username }}</td>
+    </tr>
+    <tr>
+        <td> Full Names: </td>
+        <td>{{ object.get_full_name }}</td>
+    </tr>
+    <tr>
+        <td>Email: </td>
+        <td>{{ object.email }}</td>
+    </tr>
+</table>
+<a class="mui-btn mui-btn--accent" href="{% url 'comics:not_made' %}">Edit Details</a>
 
 {% endblock %}

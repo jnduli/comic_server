@@ -15,7 +15,7 @@
                         <span class="mui-caret"></span>
                     </button>
                     <ul class="mui-dropdown__menu mui-dropdown__menu--right">
-                        <li><a href="{% url 'comics:not_made' %}">Profile</a></li>
+                        <li><a href="{% url 'userprofile:details' request.user.id %}">Profile</a></li>
                         <li><a href="{% url 'auth:logout' %}">Logout</a></li>
                     </ul>
                 </div>

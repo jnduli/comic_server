@@ -41,6 +41,11 @@
         {% endif %}
     </tr>
     <tr>
+        {% if concept.published %}
+        <td>Published URL: </td><td><a target="_blank" href="{{ request.scheme }}://{{ request.get_host }}{% url 'public:slug'  object.slug %}">{{ object.slug }}</a></td>
+        {% endif %}
+    </tr>
+    <tr>
         <td><a href="{% url 'concept:edit_concept' object.id %}">Edit concept details</a></td>
     </tr>
 </table>

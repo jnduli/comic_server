@@ -21,6 +21,6 @@
         <td>{{ object.email }}</td>
     </tr>
 </table>
-<a class="mui-btn mui-btn--accent" href="{% url 'comics:not_made' %}">Edit Details</a>
+<a class="mui-btn mui-btn--accent" href="{% url 'userprofile:edit' request.user.id %}">Edit Details</a>
 
 {% endblock %}

@@ -14,6 +14,7 @@ class SystemPageTest (TestCase):
     def test_system_page_returns_correct_html(self):
         user = User(username='anonymous', email='anon@mail.ru', password='password')
         user.is_active = False        
+        user.save()
         request = HttpRequest()
         request.user = user
         response = system_page(request)

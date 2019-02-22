@@ -38,3 +38,14 @@ def previous_comic(request, slug):
     else:
         return redirect(reverse('public:slug', args=[prev_comics[0].slug]))
 
+
+def last_comic(request):
+    last_comic = Concept.objects.filter(published=True)\
+            .order_by('date_published').last()
+    return redirect(reverse('public:slug', args=[last_comic.slug]))
+
+
+def first_comic(request):
+    first_comic = Concept.objects.filter(published=True)\
+        .order_by('date_published').first()
+    return redirect(reverse('public:slug', args=[first_comic.slug]))

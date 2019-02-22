@@ -46,14 +46,21 @@ gtag('config', '{{ analytics_tracking_id }}');
       <div class="mui-panel">
         {% if concept %}
         <div class="mui-row mui--text-center">
-          <h2 class="mui-col-xs-4">
+          <h2 class="mui-col-xs-2">
+            <a class="mui-btn" href="{% url 'public:first' %}">First</a>
+          </h2>
+          <h2 class="mui-col-xs-3">
             <a class="mui-btn" href="{% url 'public:previous' concept.slug %}">Previous</a>
           </h2>
-          <h2 class="mui-col-xs-4">
+          <h2 class="mui-col-xs-3">
             <a class="mui-btn" href="{% url 'public:index' %}">Random</a>
           </h2>
-          <h2 class="mui-col-xs-4">
-            <a class="mui-btn" href="{% url 'public:next' concept.slug %}">Next</a></h1>
+          <h2 class="mui-col-xs-2">
+            <a class="mui-btn" href="{% url 'public:next' concept.slug %}">Next</a>
+          </h2>
+          <h2 class="mui-col-xs-2">
+            <a class="mui-btn" href="{% url 'public:last' %}">Last</a>
+          </h2>
         </div>
         {% endif %}
         {% if messages %}

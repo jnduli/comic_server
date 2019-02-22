@@ -3,10 +3,9 @@ from concept.models import Concept
 from django.contrib import messages
 from django.conf import settings
 
-# Create your views here.
 
 def home_page(request, slug=""):
-    if (slug == "" ):
+    if (slug == ""):
         concept = Concept.objects.random()
         if (concept == None):
             return render(request, 'public/homepage.html')
@@ -15,28 +14,36 @@ def home_page(request, slug=""):
         concept = Concept.objects.get(slug=slug)
         # choose the comic in strip
     context = {
-            'analytics_tracking_id' : settings.ANALYTICS_TRACKING_ID,
-            'concept' : concept
+            'analytics_tracking_id': settings.ANALYTICS_TRACKING_ID,
+            'concept': concept
             }
     return render(request, 'public/homepage.html', context)
 
+
 def next_comic(request, slug):
     current_concept = Concept.objects.get(slug=slug)
-    next_comics = Concept.objects.filter(published=True,date_published__gt=current_concept.date_published).order_by('date_published')
-    if (next_comics.count() < 1 ):
-        messages.info(request,"This is the latest comic. You cannot go later") 
-        return redirect(reverse('public:slug', args=[current_concept.slug]))
+    next_comic = Concept.objects\
+        .filter(published=True, date_published__gt=current_concept.date_published)\
+        .order_by('date_published')\
+        .first()
+    if next_comic:
+        return redirect(reverse('public:slug', args=[next_comic.slug]))
     else:
-        return redirect(reverse('public:slug', args=[next_comics[0].slug]))
+        messages.info(request, "This is the latest comic. You cannot go later")
+        return redirect(reverse('public:slug', args=[current_concept.slug]))
+
 
 def previous_comic(request, slug):
     current_concept = Concept.objects.get(slug=slug)
-    prev_comics = Concept.objects.filter(published=True, date_published__lt=current_concept.date_published).order_by('-date_published')
-    if (prev_comics.count() < 1 ):
-        messages.info(request,"This is the earliest comic. You cannot go earlier")
-        return redirect(reverse('public:slug', args=[current_concept.slug]))
+    prev_comic = Concept.objects\
+        .filter(published=True, date_published__lt=current_concept.date_published)\
+        .order_by('-date_published')\
+        .first()
+    if prev_comic:
+        return redirect(reverse('public:slug', args=[prev_comic.slug]))
     else:
-        return redirect(reverse('public:slug', args=[prev_comics[0].slug]))
+        messages.info(request, "This is the earliest comic. You cannot go earlier")
+        return redirect(reverse('public:slug', args=[current_concept.slug]))
 
 
 def last_comic(request):

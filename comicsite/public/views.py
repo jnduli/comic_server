@@ -5,19 +5,18 @@ from django.conf import settings
 
 
 def home_page(request, slug=""):
-    if (slug == ""):
-        concept = Concept.objects.random()
-        if (concept == None):
-            return render(request, 'public/homepage.html')
-        return redirect(reverse('public:slug', args=[concept.slug]))
-    else:
+    if slug:
         concept = Concept.objects.get(slug=slug)
-        # choose the comic in strip
-    context = {
+        context = {
             'analytics_tracking_id': settings.ANALYTICS_TRACKING_ID,
             'concept': concept
             }
-    return render(request, 'public/homepage.html', context)
+        return render(request, 'public/homepage.html', context)
+    else:
+        concept = Concept.objects.random()
+        if concept is None:
+            return render(request, 'public/homepage.html')
+        return redirect(reverse('public:slug', args=[concept.slug]))
 
 
 def next_comic(request, slug):

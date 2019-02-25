@@ -7,16 +7,25 @@ from concept.models import Concept
 from concept.strip.models import Strip
 import os
 
-# Create your tests here.
+
 class PublicAccessSystemTestCase(TransactionTestCase):
     def setUp(self):
         john = User(username='rookie', email='john@email.com', is_active=True)
         john.set_password('password101')
         john.save()
-        self.concept = Concept(title='title', description='title', user=john, published=True)
+        self.concept = Concept(
+                title='title',
+                description='title',
+                user=john,
+                published=True)
         self.concept.save()
-        strip = Strip(concept=self.concept, user=john, image = SimpleUploadedFile(name='strip.jpg', content=open(os.path.join(os.getcwd(), 'test.png'), 'rb').read(), content_type='image/jpeg'))
-        #  self.concept.strip = Strip(.image = SimpleUploadedFile(name='strip.jpg', content=open(os.path.join(os.getcwd(), 'test.png'), 'rb').read(), content_type='image/jpeg')
+
+        strip_image_path = os.path.join(os.getcwd(), 'test.png')
+        strip_image = SimpleUploadedFile(
+                name='strip.jpg',
+                content=open(strip_image_path, 'rb').read(),
+                content_type='image/jpeg')
+        strip = Strip(concept=self.concept, user=john, image=strip_image)
         strip.save()
 
     def test_page_contains_directional_links_next_previous_last_first(self):
@@ -27,5 +36,3 @@ class PublicAccessSystemTestCase(TransactionTestCase):
         self.assertContains(response, 'Random')
         self.assertContains(response, 'Next')
         self.assertContains(response, 'Last')
-
-

@@ -21,7 +21,7 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - ssh-keyscan jnduli.co.ke >> ~/.ssh/known_hosts
+    - ssh-keyscan "$SERVER_LINK" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\tForwardAgent yes\n\n" > ~/.ssh/config'
     - git clone git@gitlab.com:jnduli/comic_server_ansible.git comic_server_ansible

@@ -27,6 +27,8 @@ gtag('config', '{{ analytics_tracking_id }}');
     <!-- load MUI -->
     <link href="//cdn.muicss.com/mui-0.9.26/css/mui.min.css" rel="stylesheet" type="text/css" />
     <script src="//cdn.muicss.com/mui-0.9.26/js/mui.min.js"></script>
+    {% load static %}
+    <link href="{% static "css/public.css" %}" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <!-- example content -->
@@ -37,7 +39,7 @@ gtag('config', '{{ analytics_tracking_id }}');
             <td class="mui--text-title">Comics</td>
             <td align="right">
               <ul class="mui-list--inline mui--text-body2 mui--text-light">
-                <li><a class="mui--text-light" href="https://jnduli.co.ke">Blog</a></li>
+                <li><a class="mui--text-light box-link" href="https://jnduli.co.ke">Blog</a></li>
               </ul>
             </td>
           </tr>
@@ -46,21 +48,11 @@ gtag('config', '{{ analytics_tracking_id }}');
       <div class="mui-panel">
         {% if concept %}
         <div class="mui-row mui--text-center">
-          <h2 class="mui-col-xs-2">
-            <a class="mui-btn" href="{% url 'public:first' %}">First</a>
-          </h2>
-          <h2 class="mui-col-xs-3">
-            <a class="mui-btn" href="{% url 'public:previous' concept.slug %}">Previous</a>
-          </h2>
-          <h2 class="mui-col-xs-3">
-            <a class="mui-btn" href="{% url 'public:index' %}">Random</a>
-          </h2>
-          <h2 class="mui-col-xs-2">
-            <a class="mui-btn" href="{% url 'public:next' concept.slug %}">Next</a>
-          </h2>
-          <h2 class="mui-col-xs-2">
-            <a class="mui-btn" href="{% url 'public:last' %}">Last</a>
-          </h2>
+            <a class="box-link" href="{% url 'public:first' %}">first</a>
+            <a class="box-link" href="{% url 'public:previous' concept.slug %}">< prev</a>
+            <a class="box-link" href="{% url 'public:index' %}">random</a>
+            <a class="box-link" href="{% url 'public:next' concept.slug %}">next ></a>
+            <a class="box-link" href="{% url 'public:last' %}">last</a>
         </div>
         {% endif %}
         {% if messages %}
@@ -80,7 +72,7 @@ gtag('config', '{{ analytics_tracking_id }}');
         <div class="mui-row">
           <img class="mui-col-xs-12 mui-col-md-8 mui-col-md-offset-2 responsive-img" src="{{ concept.strip.image.url }}"></img>
         </div>
-
+        <br/>
 
         {% if concept.public_note_html %}
         <div class="mui-row">
@@ -90,7 +82,7 @@ gtag('config', '{{ analytics_tracking_id }}');
 
         {% if concept.published %}
         <div class="mui-row">
-          Comic published on: {{ concept.date_published.date|safe }}
+            Comic published on: {{ concept.date_published.date|safe }}
         </div>
         {% endif %}
 

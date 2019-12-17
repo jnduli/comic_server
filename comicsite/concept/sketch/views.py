@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -9,8 +9,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .models import Sketch
 from concept.models import Concept
 
-# Create your views here.
-@method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
+
+@method_decorator(
+        login_required(login_url=reverse_lazy('auth:login')),
+        name='dispatch')
 class SketchCreate(CreateView, SuccessMessageMixin):
     model = Sketch
     fields = ['image']
@@ -31,7 +33,9 @@ class SketchCreate(CreateView, SuccessMessageMixin):
         return context
 
 
-@method_decorator(login_required(login_url=reverse_lazy('auth:login')),name='dispatch')
+@method_decorator(
+        login_required(login_url=reverse_lazy('auth:login')),
+        name='dispatch')
 class SketchUpdate(UpdateView, SuccessMessageMixin):
     model = Sketch
     fields = ['image']

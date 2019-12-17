@@ -7,7 +7,7 @@
     <h5 class="mui-col-md-6 mui--text-title mui--text-right">
         {% if object.published %}
         <a href="{% url 'concept:publish_concept' object.id %}">Unpublish</a>
-        {% else %}
+        {% elif object.strip %}
         <a href="{% url 'concept:publish_concept' object.id %}">Publish</a>
         {% endif %}
     </h5>
@@ -69,7 +69,9 @@
 </div>
 
 <div>
+    {% if object.sketch %}
     <div class="mui-row mui--text-title">Gimp</div>
+    {% endif %}
     <div class="mui-row">
         {% if object.sketch and object.gimp %}
         <!-- add file download path -->
@@ -83,7 +85,9 @@
 </div>
 
 <div class="row">
+    {% if object.sketch and object.gimp %}
     <div class="mui-row mui--text-title">Comic Strip</div>
+    {% endif %}
     {% if object.sketch and object.gimp and object.strip %}
     <div class="mui-row">
         <!-- add file download path -->

@@ -1,4 +1,5 @@
 from .common_settings import *
+from decouple import config, Csv
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -6,7 +7,8 @@ from .common_settings import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['comics.jnduli.co.ke', 'www.comics.jnduli.co.ke']
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

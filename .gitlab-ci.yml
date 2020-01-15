@@ -12,21 +12,21 @@ test:
     - python manage.py migrate
     - python manage.py test
 
-deploy:
-  image: alpine
-  stage: deploy
-  script:
-    - apk add --no-cache openssh ansible git
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan -p "$SSH_PORT" jnduli.co.ke >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\tForwardAgent yes\n\n" > ~/.ssh/config'
-    - git clone git@gitlab.com:jnduli/comic_server_ansible.git comic_server_ansible
-    - cd comic_server_ansible
-    - ansible-playbook -i "$SERVER_LINK," -u "$SERVER_USER" --extra-vars="ansible_become_pass=$SERVER_PASSWORD" update_project.yml
-  only: 
-    - master
+# deploy:
+  # image: alpine
+  # stage: deploy
+  # script:
+    # - apk add --no-cache openssh ansible git
+    # - eval $(ssh-agent -s)
+    # - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    # - mkdir -p ~/.ssh
+    # - chmod 700 ~/.ssh
+    # - ssh-keyscan -p "$SSH_PORT" jnduli.co.ke >> ~/.ssh/known_hosts
+    # - chmod 644 ~/.ssh/known_hosts
+    # - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\tForwardAgent yes\n\n" > ~/.ssh/config'
+    # - git clone git@gitlab.com:jnduli/comic_server_ansible.git comic_server_ansible
+    # - cd comic_server_ansible
+    # - ansible-playbook -i "$SERVER_LINK," -u "$SERVER_USER" --extra-vars="ansible_become_pass=$SERVER_PASSWORD" update_project.yml
+  # only:
+    # - master
 

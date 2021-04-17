@@ -41,4 +41,10 @@ STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 
 ANALYTICS_TRACKING_ID = ''
 
+# DBBACKUP_CONNECTORS = {
+#     'default': {
+#         'CONNECTOR': 'dbbackup.db.postgresql.PgDumpBinaryConnector',
+#     }
+# }
+
 DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR,'backups/')}

@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class GimpConfig(AppConfig):
-    name = 'gimp'
+    name = 'concept.gimp'

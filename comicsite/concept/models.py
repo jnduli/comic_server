@@ -25,20 +25,24 @@ class Concept ( models.Model ):
     description = models.TextField(unique=True)
     characters_no = models.IntegerField(blank=True,null = True)
     conversation = models.TextField(blank=True,null = True)
-    conversation_html = models.TextField(editable=False, blank=True)
     deleted = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=False)
     date_published = models.DateTimeField(blank=True, null=True)
     public_note = models.TextField(blank=True, null=True)
+    # save this to db because it's public facing so instead of dynamically loading it we just save it
     public_note_html = models.TextField(editable=False, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     objects = ConceptManager()
 
+    @property
+    def conversation_html(self):
+        if self.conversation:
+            return markdown(self.conversation, extensions=['markdown.extensions.nl2br'])
+        return None
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        if self.conversation is not None:
-            self.conversation_html = markdown(self.conversation, extensions=['markdown.extensions.nl2br'])
+        if self.public_note is not None:
             self.public_note_html = markdown(self.public_note, extensions=['markdown.extensions.nl2br'])
         super(Concept, self).save(*args, **kwargs)
-

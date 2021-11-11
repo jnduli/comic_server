@@ -1,0 +1,51 @@
+version: "3.8"
+
+services: 
+  db:
+    image: postgres:13.4-alpine # similar version to pg dump in comic server dockerfile, otherwise backsups fail
+    container_name: comic_server_db
+    volumes:
+      - comics-db-data:/var/lib/postgresql/data
+      - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+    networks:
+      - comic_server_network
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      DJANGO_DB_USER: "${DB_USER}"
+      DJANGO_DB_PASSWORD: "${DB_PASSWORD}"
+      # we need postgres user for db restore, so we dont create a custom user with POSTGRES_USER
+      # django user is created in the init-user-db command above
+      POSTGRES_PASSWORD: "${POSTGRES_ADMIN_PASSWORD}"
+
+  comic_server:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    image: comic_server:latest
+    container_name: comic_server
+    depends_on:
+      - db
+    networks:
+      - comic_server_network
+    environment:
+      SECRET_KEY: "${SECRET_KEY}"
+      DB_NAME: "${DB_NAME}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_HOST: db
+      DJANGO_SETTINGS_MODULE: "comicsite.production_settings"
+      ALLOWED_HOSTS: "${ALLOWED_HOSTS}"
+    volumes:
+      - "${STATIC_FOLDER_PATH}:/var/www/static_files/:rw"
+      - "${BACKUP_FOLDER_PATH}:/var/backups/comic_server/:rw"
+    ports:
+      - 8081:8000
+
+volumes:
+    comics-db-data:
+      name: comics-db-data
+
+networks:
+  comic_server_network:
+    name: comic-server-docker-network
+    driver: bridge

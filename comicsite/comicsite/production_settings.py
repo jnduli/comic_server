@@ -32,3 +32,10 @@ STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 ANALYTICS_TRACKING_ID = 'UA-89300561-2'
 
 DBBACKUP_STORAGE_OPTIONS = {'location': '/var/backups/comic_server'}
+
+# DBBACKUP_CONNECTORS = {
+#     'default': {
+    # Connector doesn't help much with restore
+#         'CONNECTOR': 'dbbackup.db.postgresql.PgDumpBinaryConnector',
+#     }
+# }

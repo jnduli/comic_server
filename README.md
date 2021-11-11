@@ -1,7 +1,51 @@
 # Comic Server
 
-This code repository contains the code that runs the comic site found at
-[jnduli comics](https://comics.jnduli.co.ke).
+Code for website: [jnduli comics](https://comics.jnduli.co.ke).
+
+
+## How To Restore Backups
+Uses django-dbbackup to set up backups and restore, but there's a
+problem with restore
+(https://github.com/django-dbbackup/django-dbbackup/issues/245).
+
+To restore a back up:
+- create users in original db (postgres and comic_db_user)
+- modify the backup file to remove the lines that DROP constraints
+  (until drop schema public)
+- Run:
+  `DB_USER=postgres DB_PASSWORD=password python manage.py dbrestore --uncompress -input-path path_to_dbbackup`    
+
+## TODO: Clean up The Lines Below
+
+## Running in a server
+TODO: working on these ansible instructions, will add problems with
+docker and move to vagrant
+Have ansible instructions here and disable CI CD at the moment.
+
+## Moving to Docker
+- how to run the docker-compose on the server?
+- dealing with certificates on the server?
+- how to link up static files on the server?
+- how to manage release process for the project?
+- server organization??
+
+
+what things do I need on a server to get everything up and ready?
+- docker
+- certbot
+- nginx set up
+
+# To run this:
+This command will also update with local changes in the code base:
+    docker-compose build && docker-compose up -d
+To run migrations:
+    docker-compose exec comic_server python manage.py migrate
+To do a backup:
+    docker-compose exec comic_server python manage.py dbbackup
+    docker-compose exec comic_server python manage.py mediabackup
+
+
+## TODO: Clean up The Lines Below
 
 The project is a django project. I've also included a sample ansible
 script that one can use to set up the project.

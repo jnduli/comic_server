@@ -39,7 +39,7 @@ services:
       - "${STATIC_FOLDER_PATH}:/var/www/static_files/:rw"
       - "${BACKUP_FOLDER_PATH}:/var/backups/comic_server/:rw"
     ports:
-      - 8081:8000
+      - 127.0.0.1:8081:8000
 
 volumes:
     comics-db-data:

@@ -4,6 +4,7 @@ services:
   db:
     image: postgres:13.4-alpine # similar version to pg dump in comic server dockerfile, otherwise backsups fail
     container_name: comic_server_db
+    restart: always
     volumes:
       - comics-db-data:/var/lib/postgresql/data
       - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
@@ -22,6 +23,7 @@ services:
       context: ../
       dockerfile: Dockerfile
     image: comic_server:latest
+    restart: always
     container_name: comic_server
     depends_on:
       - db

@@ -13,7 +13,7 @@ To restore a back up:
 - modify the backup file to remove the lines that DROP constraints
   (until drop schema public)
 - Run:
-  `DB_USER=postgres DB_PASSWORD=password python manage.py dbrestore --uncompress -input-path path_to_dbbackup`    
+  `DB_USER=postgres DB_PASSWORD=password python manage.py dbrestore --uncompress --input-path path_to_dbbackup`    
 
 ## TODO: Clean up The Lines Below
 
@@ -41,9 +41,7 @@ This command will also update with local changes in the code base:
 To run migrations:
     docker-compose exec comic_server python manage.py migrate
 To do a backup:
-    docker-compose exec comic_server python manage.py dbbackup
-    docker-compose exec comic_server python manage.py mediabackup
-
+t
 
 ## TODO: Clean up The Lines Below
 

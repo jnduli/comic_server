@@ -4,7 +4,7 @@ FROM python:3.7-slim
 
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get install -y postgresql-client # required for backups and restore by django-dbbackup
+# RUN apt-get update && apt-get install -y postgresql-client # required for backups and restore by django-dbbackup
 
 COPY ./requirements.txt /
 RUN pip3 install --no-cache-dir -r requirements.txt

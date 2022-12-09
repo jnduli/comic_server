@@ -75,3 +75,31 @@ DJANGO_DATABASE=server python manage.py mediarestore --input-path full_path_to_m
 DJANGO_DATABASE=server python manage.py runserver
 ```
 
+
+# migration to sqlite
+
+Plan to migrate to sqlite:
+
+1. Change ansible playbook to deploy an sqlite configuration for the website and
+   system:
+   - change branch
+   - change folder project sits on
+   - change the ip and port we follow
+   - TODO: look for other alternatives
+   - TODO: ensure we have backups and dump.json has run
+2. Log into the main server and run dump.json
+3. Run and deploy the new sqlite version, change the folder we checkout to and
+   the ip port we listen on
+4. Run load_data on the sqlite version
+5. Manually change nginx to point to the new sqlite version
+6. Merge changes to main
+7. Clean up ansible play books and re-run everything from scratch to see how it
+   would work
+8. Clean up the old docker-compose files
+9. Document everything in blog post
+   
+
+Run this command:
+
+1. docker-compose exec comic_server bash -c "python manage.py dumpdata > /var/backups/comic_server/json_dump.json"
+ 

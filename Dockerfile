@@ -18,5 +18,5 @@ EXPOSE 8000
 ENV DJANGO_WSGI_MODULE comicsite.wsgi
 
 CMD ["sh", "-c", "gunicorn ${DJANGO_WSGI_MODULE}:application --name comic_server --workers 3 --bind 0.0.0.0:8000 --log-level=debug --log-file=/var/comic_server_logs"]
-# CMD ["sh", "-c", "python comicsite/manage.py runserver 0.0.0.0:8000"]
+# CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
 # CMD ["sh", "-c", "python comicsite/manage.py migrate && python comicsite/manage.py runserver 0.0.0.0:8000"]

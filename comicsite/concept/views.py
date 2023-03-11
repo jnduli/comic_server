@@ -22,7 +22,7 @@ from concept.strip.models import Strip
 class ConceptCreate(SuccessMessageMixin, CreateView):
     model = Concept
     form_class = ConceptForm
-    # success_url = '/comics/system/' 
+    # success_url = '/comics/system/'
     success_message = "Concept successfully created"
 
     def get_success_url(self):
@@ -37,7 +37,7 @@ class ConceptList(ListView):
     model = Concept
 
     def get_queryset(self):
-        order = self.request.GET.get('orderby', '-date_created')
+        order = '-date_created'
         filter_val = self.request.GET.get('filter', '')
         user = self.request.user
         if filter_val == '':

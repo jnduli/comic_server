@@ -6,29 +6,16 @@
     <h3>Concepts</h3>
 </div>
 
- <div class="mui-row">
-    <div class="mui-select mui-col-md-6">
-        <select onchange="window.location.href=this.value;">
-            <option value="" disabled selected>Choose your option</option>
-        <option value="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=date_created">Dates descending</option>
-        <option value="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=-date_created">Dates ascending</option>
-        <option value="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=title">Title descending</option>
-        <option value="{% url 'concept:list_concepts' %}?filter={{ filter }}&orderby=-title">Title ascending</option>
-        </select>
-        <label>Order By</label>
-    </div>
-</div>
-
 <div class="mui-row">
 
     <table id="concept-table" class="mui-table mui-col-md-8">
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Has Sketch</th>
-                <th>Has gimp</th>
-                <th>Has strip</th>
-                <th>comic published</th>
+                <th>Slug</th>
+                <th>has_sketch</th>
+                <th>has_final</th>
+                <th>is_published</th>
                 <th>Details</th>
             </tr>
         </thead>
@@ -36,16 +23,11 @@
             {% for concept in object_list %}
             <tr>
                 <td>{{ concept.title }}</td>
+                <td>{{ concept.slug }}</td>
                 {% if concept.sketch %}
                 <td>Yes</td>
                 {% else %}
                 <td>None</td>
-                {% endif %}
-
-                {% if concept.gimp %}
-                <td>Yes</td>
-                {% else %}
-                <td>No</td>
                 {% endif %}
 
                 {% if concept.strip %}
@@ -55,9 +37,9 @@
                 {% endif %}
 
                 {% if concept.published %}
-                <td>published</td>
+                <td>Yes</td>
                 {% else %}
-                <td>unpublished</td>
+                <td>No</td>
                 {% endif %}
 
                 <td><a href="{% url 'concept:detail_concept' concept.id %}">details</a></td>
@@ -71,4 +53,13 @@
     </table>
 </div>
 
+<script type="text/javascript">
+    const dataTable = new simpleDatatables.DataTable("#concept-table", {
+        searchable: false,
+        fixedHeight: true,
+    })
+
+</script>
+
 {% endblock %}
+

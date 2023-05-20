@@ -102,3 +102,5 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # hide's warning for auto-created primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ANALYTICS_TRACKING_ID = 'randomstring'

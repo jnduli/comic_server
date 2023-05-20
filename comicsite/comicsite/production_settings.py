@@ -29,7 +29,7 @@ ENV_PATH = '/var/www/static_files/'
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 
-ANALYTICS_TRACKING_ID = 'UA-89300561-2'
+ANALYTICS_TRACKING_ID = 'G-B9YJ0J3QN4'
 
 DBBACKUP_STORAGE_OPTIONS = {'location': '/var/backups/comic_server'}
 

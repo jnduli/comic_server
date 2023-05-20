@@ -1,0 +1,18 @@
+# Database configs
+# super admin for dbase
+POSTGRES_ADMIN_PASSWORD=password
+
+# Django db access
+DB_NAME=comic_server
+DB_USER=comic_psql_user
+DB_PASSWORD=password
+
+# Django other configs
+SECRET_KEY='secret_key'
+ALLOWED_HOSTS=*
+# ALLOWED_HOSTS='*, comics.jnduli.co.ke, www.comics.jnduli.co.ke'
+
+# folder that contains django static files. Should be served directly with nginx
+STATIC_FOLDER_PATH=/tmp/comic_server/static
+# folder used by django dbbackup
+BACKUP_FOLDER_PATH=/tmp/comic_server/backup

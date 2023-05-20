@@ -1,16 +1,16 @@
 <!doctype html>
 <html>
   <head>
-
-
     {% if analytics_tracking_id %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-89300561-2"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9YJ0J3QN4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '{{ analytics_tracking_id }}');
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ analytics_tracking_id }}');
     </script>
     {% endif %}
     <meta charset="utf-8">

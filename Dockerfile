@@ -17,6 +17,10 @@ EXPOSE 8000
 
 ENV DJANGO_WSGI_MODULE comicsite.wsgi
 
-CMD ["sh", "-c", "gunicorn ${DJANGO_WSGI_MODULE}:application --name comic_server --workers 3 --bind 0.0.0.0:8000 --log-level=debug --log-file=/var/comic_server_logs"]
+# gunicorn runs threaded workers (--threads) and glibc creates a malloc arena per
+# thread, which fragments memory and makes RSS creep up over time. Cap the arenas.
+ENV MALLOC_ARENA_MAX 2
+
+CMD ["sh", "-c", "gunicorn ${DJANGO_WSGI_MODULE}:application --name comic_server --workers 1 --threads 4 --bind 0.0.0.0:8000 --log-level=debug --log-file=/var/comic_server_logs"]
 # CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
 # CMD ["sh", "-c", "python comicsite/manage.py migrate && python comicsite/manage.py runserver 0.0.0.0:8000"]

@@ -36,6 +36,9 @@ STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
 ANALYTICS_TRACKING_ID = 'G-B9YJ0J3QN4'
 
 DBBACKUP_STORAGE_OPTIONS = {'location': '/var/backups/comic_server'}
+# dbbackup/mediabackup --clean keep only the newest 2 of each; hifadhi keeps
+# the history off-site as daily snapshots of this folder
+DBBACKUP_CLEANUP_KEEP = 2
 
 # DBBACKUP_CONNECTORS = {
 #     'default': {
